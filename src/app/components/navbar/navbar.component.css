@@ -1,0 +1,24 @@
+div.container.navbar {
+  margin: 0;
+  width: 100%;
+}
+
+.menu {
+  background: rgba(49, 51, 53, 0.397);
+}
+
+a.nav-link {
+  color: cornsilk;
+  font-family: 'Turret Road', cursive;
+  font-size: 1.5em;
+}
+
+.active {
+  color: white;
+}
+
+
+a:hover {
+  color: white;
+  cursor: pointer;
+}

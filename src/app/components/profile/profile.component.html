@@ -1,0 +1,46 @@
+<ng-template #longContent let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Modal title</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form #f="ngForm">
+      <input type="text" placeholder="image_url" name="image_url" ngModel>
+      <input type="text" placeholder="text_image" name="text_image" ngModel>
+      <input type="text" placeholder="tags_image" name="tags_image" ngModel>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+    <button type="submit" class="btn btn-light" (click)="createPhoto(f.value)">Submit</button>
+  </div>
+</ng-template>
+<button class="btn btn-outline-primary mb-2 mr-2" (click)="openScrollableContent(longContent)">Modal scrollable content</button>
+<!-- <form #f="ngForm"  >
+  <input type="text" class="form-control" placeholder="image_url" name="image_url" ngModel>
+  <input type="text" class="form-control" placeholder="text_image" name="text_image" ngModel>
+  <input type="text" class="form-control" placeholder="tags_image" name="tags_image" ngModel>
+  <button type="submit" class="btn btn-light"(click)="createPhoto(f.value)">Submit</button>
+</form> -->
+
+<h1>Profile</h1>
+<a href="" class="btn btn-secondary" >New Photo</a>
+<p>Username:{{user[0].name}}</p>
+<p>Foto:{{user[0].gravatar_hash}}</p>
+<p>SEguidores:{{user[0].seguindoCount}}"</p>
+<p>Seguidores:{{user[0].seguidoresCount}}</p>
+
+<div (click)="openInNewTab('www.test.com');">Something To Click On</div>
+    <ul *ngFor="let photos of info ">
+      <li>Username::{{ photos.username }}</li>
+      <li><img class="card-img-top" [src]="photos.image_url"  class="rounded mx-auto d-block"></li>
+      <li>{{ photos.likecount }}</li>
+      <li>{{ photos.commentcount }}</li>
+      <li><button class="btn btn-outline-primary mb-2 mr-2" (click)="openScrollableContent(longContent)">Modal scrollable content</button></li>
+
+    </ul>
+
+    <a href="javascript:void(0)" class="btn btn-secondary" routerLink="/instagamer/home">Back</a> 
+    

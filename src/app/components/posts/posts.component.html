@@ -1,0 +1,14 @@
+<!-- <a ng-init="getPosts()"></a> -->
+
+<!-- <button routerLinkActive="active"  (click)="getPosts()">Get Posts</button> -->
+
+    <ul *ngFor="let post of posts">
+      <li>{{ post.username }}</li>
+      <li><a [routerLink]="['/instagamer/posts/photo', post.id]"><img class="card-img-top"  [src]="post.image_url"  class="rounded mx-auto d-block"></a></li>
+      <li>{{ post.likecount }}</li>
+      <li>{{ post.text_photo }}</li>
+      <li>{{ post.commentcount }}</li>
+      <li>{{ post.created_at }}</li>
+    </ul>
+    <a href="javascript:void(0)" class="btn btn-secondary" routerLink="">Back</a > 
+       
