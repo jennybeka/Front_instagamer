@@ -18,7 +18,7 @@ export class PostsService {
       Authorization: 'Bearer ' + token
     });
 
-    return this.http.get('http://localhost:3001/instagamer/posts', { headers });
+    return this.http.get('http://localhost:3001/instagamer/posts/:page', { headers });
   }
 
   /**Pegar as informações de uma foto especifica, comentarios, likes e tags */

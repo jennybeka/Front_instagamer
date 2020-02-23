@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { UsersService } from '../../services/users.service';
 import { NgbModule, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ActivatedRoute } from '@angular/router';
 
 
 @Component({
@@ -15,11 +16,12 @@ export class ProfileComponent implements OnInit {
 
   info: any[] = [];
   user: any[] = [];
-
+  totalPosts: number;
   constructor(
     private http: HttpClient,
     private usersService: UsersService,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private route: ActivatedRoute,
 
     ) { }
 
@@ -28,9 +30,15 @@ export class ProfileComponent implements OnInit {
   }
 
   getMyProfile() {
-    this.usersService.getProfile().subscribe(res => {this.info = res.info; this.user = res.user});
-    console.log(this.info)
-    console.log(this.user)
+    this.usersService.getProfile(this.route.snapshot.params['page'])
+    .subscribe(res => {
+                        this.info = res.info;
+                        this.user = res.user;
+                        this.totalPosts = res.pageQt;
+                        console.log(this.info);
+                        console.log(this.user);
+                        console.log(this.totalPosts);
+                      });
   }
 
    openInNewTab(url) {

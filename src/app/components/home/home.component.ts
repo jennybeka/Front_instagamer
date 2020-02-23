@@ -11,6 +11,8 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class HomeComponent implements OnInit {
 
+  page: number = 0;
+
   constructor(
     private auth: AuthService
   ) { }

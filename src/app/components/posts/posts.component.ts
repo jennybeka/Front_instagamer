@@ -18,6 +18,7 @@ export class PostsComponent implements OnInit {
     
   ) {
   this.route.params.subscribe(res => console.log(res.id));
+  this.route.params.subscribe(res => console.log(res.page));
   }
 
   ngOnInit() {

@@ -1,4 +1,4 @@
-<h1>Pagina HOME</h1>
+<a [routerLink]="['/instagamer/profile', page]"><h1>Pagina HOME</h1></a>
 
 <div class="menu">
     <ul class="nav justify-content-end ">
@@ -6,10 +6,10 @@
         <a class="nav-link" routerLinkActive="active" routerLink="">HOME</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" routerLinkActive="active" routerLink="/instagamer/profile">PERFIL</a>
+        <a class="nav-link" routerLinkActive="active" routerLink="/instagamer/profile/:page">PERFIL</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" routerLinkActive="active" routerLink="/instagamer/posts">POSTS</a>
+        <a class="nav-link" routerLinkActive="active" routerLink="/instagamer/posts/:page">POSTS</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" (click)="logout()" routerLinkActive="active" routerLink="/instagamer/login">LOGOUT</a>
