@@ -2,7 +2,7 @@ import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from "@angular/router";
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class AuthGuard implements CanActivate {
 
     constructor(private router: Router) { }
@@ -10,13 +10,13 @@ export class AuthGuard implements CanActivate {
     canActivate(
         route: ActivatedRouteSnapshot,
         state: RouterStateSnapshot): Observable<boolean> | boolean {
-
+              // authorised so return true
         if (sessionStorage.getItem('token') != null) {
             return true;
-        } else {
-            alert('You are not allowed to view this page');
-            this.router.navigate(['/instagamer/login']);
-            return false;
-        }
+        } 
+        // alert('You are not allowed to view this page');
+        this.router.navigate(['/instagamer/login']);
+        return false;
+        
     }
 }

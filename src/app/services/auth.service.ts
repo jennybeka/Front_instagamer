@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
+
 export class AuthService {
 
   constructor(
@@ -13,5 +14,6 @@ export class AuthService {
 
   login(email: string, password: string): Observable<any> {
     return this.http.post('http://localhost:3001/instagamer/login', { email, password });
+    
   }
 }

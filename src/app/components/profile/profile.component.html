@@ -8,8 +8,9 @@
   <div class="modal-body">
     <form #f="ngForm">
       <input type="text" placeholder="image_url" name="image_url" ngModel>
-      <input type="text" placeholder="text_image" name="text_image" ngModel>
-      <input type="text" placeholder="tags_image" name="tags_image" ngModel>
+      <input type="text" placeholder="Text" name="text_image" ngModel>
+      <input type="text" placeholder="tags" name="tags_image" ngModel>
+      <input type="text" placeholder="legend" name="legend" ngModel>
     </form>
   </div>
   <div class="modal-footer">
@@ -17,7 +18,6 @@
     <button type="submit" class="btn btn-light" (click)="createPhoto(f.value)">Submit</button>
   </div>
 </ng-template>
-<button class="btn btn-outline-primary mb-2 mr-2" (click)="openScrollableContent(longContent)">Modal scrollable content</button>
 <!-- <form #f="ngForm"  >
   <input type="text" class="form-control" placeholder="image_url" name="image_url" ngModel>
   <input type="text" class="form-control" placeholder="text_image" name="text_image" ngModel>
@@ -26,22 +26,26 @@
 </form> -->
 
 <h1>Profile</h1>
-<a href="" class="btn btn-secondary" >New Photo</a>
-<p>Username:{{user[0].name}}</p>
-<p>Foto:{{user[0].gravatar_hash}}</p>
-<p>SEguidores:{{user[0].seguindoCount}}"</p>
-<p>Seguidores:{{user[0].seguidoresCount}}</p>
-<p>Numero de paginas:{{totalPosts}}</p>
 
-
-<div (click)="openInNewTab('www.test.com');">Something To Click On</div>
+<div class="container">
+  <a href="" class="btn btn-secondary" >New Photo</a>
+  <p>Username:{{user[0].name}}</p>
+  <img ngbTooltip="To change your gravatar, access: 'www.gravatar.com' " 
+      data-toggle="tooltip" 
+      data-placement="top" 
+      src="http://www.gravatar.com/avatar/{{user[0].gravatar_hash}}?d=wavatar" 
+      class="avatar rounded-circle" alt="My avatar"> 
+  <p>Seguindo:{{user[0].seguindoCount || 0 }}</p>
+  <p>Seguidores:{{user[0].seguidoresCount}}</p>
+  <p>Numero de paginas:{{totalPosts}}</p>
+  <button class="btn btn-outline-primary mb-2 mr-2" (click)="openScrollableContent(longContent)">New Post</button>
+</div>
     <ul *ngFor="let photos of info ">
       <li>Username::{{ photos.username }}</li>
-      <li><img class="card-img-top" [src]="photos.image_url"  class="rounded mx-auto d-block"></li>
+      <li><a [routerLink]="['/instagamer/posts/photo', photos.id]"><img class="card-img-top" [src]="photos.image_url"  class="rounded mx-auto d-block"></a></li>
+      <li>{{ photos.text_photo }}</li>
       <li>{{ photos.likecount }}</li>
       <li>{{ photos.commentcount }}</li>
-      <li><button class="btn btn-outline-primary mb-2 mr-2" (click)="openScrollableContent(longContent)">Modal scrollable content</button></li>
-
     </ul>
 
     <a href="javascript:void(0)" class="btn btn-secondary" routerLink="/instagamer/home">Back</a> 

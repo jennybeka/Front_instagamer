@@ -1,30 +1,45 @@
  
-<div class="panel">
-  <h1>Teste de h1</h1>
-     <div class="container">
-       <div class="col-md-6 col-sm-8 col-xs-12"> 
-        <div class="login-container" class="clearfix">
-          <a href="/" class="logolink">
-            <img src="../../../assets/img/logoInsta.png" width="200">
-          </a>
-          <p class="text-center description-page">Welcome to instaGamer!<br>Please insert your data to login:</p>
-          <div class="bg-danger">
-            <p id="error"></p>
+
+  <h1>Login</h1>
+    <div class="col-sm-6 offset-sm-1"> 
+    <div class="login-container" class="clearfix">
+      <a href="/" class="logolink">
+        <img src="../../../assets/img/logoInsta.png" width="250">
+      </a>
+      <p class="text-center description-page">Welcome to instaGamer!<br>Please insert your data to login:</p>
+      <hr><!-- <div class="bg-danger">
+        <p id="error"></p>
+      </div> -->
+      
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <label for="email">Email:</label>
+          <input type="email" class="form-control" formControlName="email" placeholder="email@example.com" [ngClass]="{ 'is-invalid': submitted && f.email.errors }"/>
+          <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+            <div *ngIf="f.email.errors.required">Email is required</div>
           </div>
-          
-          <form #f="ngForm" (submit)="submit(f.value)"  id="form" data-location="posts" data-formtype="login">
-            <div class="form-group">
-              <input type="email" class="form-control" name="email" placeholder="Email" ngModel>
-            </div>
-            <div class="form-group">
-              <input type="password" class="form-control" name="password" placeholder="Password" ngModel>
-            </div>
-            <button class="btn btn-blue" type="submit">Login</button>
-            <hr>
-            <a class="btn btn-default" href="passwordreset">Forgot password</a>
-          </form>
         </div>
-        <a href="/instagamer/register" class="login-container col-md-12 pull-left">Don't have account? Join here.</a>
-      </div>
+        <div class="form-group">
+          <label for="password">Password:</label>
+          <input type="password" class="form-control" formControlName="password" placeholder="******" [ngClass]="{ 'is-invalid': submitted && f.password.errors }"/>
+          <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+            <div *ngIf="f.password.errors.required">Password is required</div>
+          </div>
+        </div>
+        <!-- Div de Register(aparece se clicado) -->
+        <div class="form-group">
+          <button [disabled]="loading" class="btn btn-primary">
+              <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+              Login
+          </button>
+          <!-- FIM DIV de register -->
+          <a routerLink="/instagamer/register" class="btn btn-link">Register</a>
+        </div>
+        <hr>
+        <a class="btn btn-default" href="passwordreset">Forgot password</a>
+      </form>
     </div>
-</div>
+  </div> 
+
+
+

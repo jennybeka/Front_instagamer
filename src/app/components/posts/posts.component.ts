@@ -26,11 +26,13 @@ export class PostsComponent implements OnInit {
   }
 
   getPosts() {
-    this.postsService.getPublicPosts().subscribe(res => this.posts = res.posts);
+    this.postsService.getPublicPosts(this.route.snapshot.params['page'])
+    .subscribe(res => this.posts = res.posts);
   }
 
   getPhoto() {
-    this.postsService.getPhotoDetails().subscribe(res => this.posts = res.posts);
+    this.postsService.getPhotoDetails(this.route.snapshot.params['id'])
+    .subscribe(res => this.posts = res.posts);
   }
 
 }

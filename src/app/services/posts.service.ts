@@ -12,23 +12,23 @@ export class PostsService {
   ) { }
 
   /**Pegar todoas os posts de quem eu sigo */
-  getPublicPosts(): Observable<any> {
+  getPublicPosts(page: number): Observable<any> {
     const token = sessionStorage.getItem('token');
     const headers = new HttpHeaders({
       Authorization: 'Bearer ' + token
     });
 
-    return this.http.get('http://localhost:3001/instagamer/posts/:page', { headers });
+    return this.http.get(`http://localhost:3001/instagamer/posts/${page}`, { headers });
   }
 
   /**Pegar as informações de uma foto especifica, comentarios, likes e tags */
-  getPhotoDetails(): Observable<any> {
+  getPhotoDetails(id:number): Observable<any> {
     const token = sessionStorage.getItem('token');
     const headers = new HttpHeaders({
       Authorization: 'Bearer ' + token
     });
 
-    return this.http.get('http://localhost:3001/instagamer/posts/photo/:id', { headers });
+    return this.http.get(`http://localhost:3001/instagamer/posts/photo/${id}`, { headers });
   }
 
   

@@ -52,10 +52,13 @@ export class ProfileComponent implements OnInit {
 
   createPhoto(photoForm) {
     console.log(`Chamando criação ${photoForm.tags_image}`)
-    this.usersService.createPost(photoForm.image_url, photoForm.text_image, photoForm.tags_image).subscribe(res => {
-      console.log("funciona");
+    this.usersService.createPost(photoForm.image_url, photoForm.text_image, photoForm.tags_image, photoForm.legend).subscribe(res => {
+      console.log("funciona postar foto");
     });
     
   }
+
+  
+  
 
 }
