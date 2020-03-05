@@ -36,6 +36,7 @@ import { AlertComponent } from './components/alert/alert.component';
     FormsModule,
     NgbModule,
     ReactiveFormsModule
+    
   ],
   providers: [AuthGuard],
   bootstrap: [AppComponent]

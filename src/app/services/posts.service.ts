@@ -31,5 +31,13 @@ export class PostsService {
     return this.http.get(`http://localhost:3001/instagamer/posts/photo/${id}`, { headers });
   }
 
-  
+    like(idphoto:number){
+      const token = sessionStorage.getItem('token');
+      const headers = new HttpHeaders({
+      Authorization: 'Bearer ' + token
+    });
+
+    return this.http.get(`http://localhost:3001/instagamer/posts/like/${idphoto}`, { headers });
+    }
+      
 }
