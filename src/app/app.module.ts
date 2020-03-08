@@ -15,6 +15,7 @@ import { FooterComponent } from './components/footer/footer.component';
 import { AuthGuard } from './services/auth.guard';
 import { NgbModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AlertComponent } from './components/alert/alert.component';
+import { AuthService } from './services/auth.service';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,7 @@ import { AlertComponent } from './components/alert/alert.component';
     ReactiveFormsModule
     
   ],
-  providers: [AuthGuard],
+  providers: [AuthGuard, LoginComponent, AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

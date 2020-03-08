@@ -11,7 +11,7 @@ import { ActivatedRoute } from '@angular/router';
 export class PostsComponent implements OnInit {
 
   posts: any[] = [];
-
+  totalPosts: number;
   constructor(
     private route: ActivatedRoute,
     private postsService: PostsService
@@ -27,11 +27,19 @@ export class PostsComponent implements OnInit {
 
   getPosts() {
     this.postsService.getPublicPosts(this.route.snapshot.params['page'])
-    .subscribe(res => this.posts = res.posts);
+    .subscribe(res =>{
+                  this.posts = res.posts
+                  this.totalPosts = res.pageQt;
+               });
   }
 
   getPhoto() {
     this.postsService.getPhotoDetails(this.route.snapshot.params['id'])
+    .subscribe(res => this.posts = res.posts);
+  }
+
+  postComment(commentForm) {
+    this.postsService.createComment(commentForm.comment,commentForm.photoId, commentForm.userId)
     .subscribe(res => this.posts = res.posts);
   }
 

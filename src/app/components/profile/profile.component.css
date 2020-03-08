@@ -1,4 +1,17 @@
 .feed-thumbnail { margin-bottom: 30px; overflow: hidden; display:block; float: left; position: relative; }
-.feed-thumbnail-img { height:290px;}
+.feed-thumbnail-img { height:390px; width: auto;}
 
 .feed-thumbnail:after { display: block; position: absolute; top:0; left:0; background: #000; z-index: 9}
+
+
+div.profile {
+    padding: 15px 0;
+    min-height:80px;
+   
+}
+span.spacing {
+    padding-left: 9px;
+    margin-left: 9px;
+    height: 10px;
+    border-left: 1px solid;
+}

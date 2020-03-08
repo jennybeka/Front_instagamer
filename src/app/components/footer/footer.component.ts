@@ -13,6 +13,11 @@ export class FooterComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.verifyIsLoggedIn();
+  }
+
+  verifyIsLoggedIn(): boolean{
+    return  this.auth.returnIsLoggedIn();
   }
 
 }

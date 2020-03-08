@@ -4,6 +4,9 @@ import { Observable } from 'rxjs';
 import { UsersService } from '../../services/users.service';
 import { NgbModule, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute } from '@angular/router';
+import { FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { AlertService } from 'src/app/services/alert.service';
+import { first } from 'rxjs/operators';
 
 
 @Component({
@@ -13,28 +16,41 @@ import { ActivatedRoute } from '@angular/router';
   encapsulation: ViewEncapsulation.None
 })
 export class ProfileComponent implements OnInit {
-
+  postForm: FormGroup;
+  submitted = false;
+  loading = false;
   info: any[] = [];
   user: any[] = [];
+  postId: any[] = [];
   totalPosts: number;
+
+
   constructor(
     private http: HttpClient,
+    private formBuilder: FormBuilder,
     private usersService: UsersService,
     private modalService: NgbModal,
     private route: ActivatedRoute,
+    private alertService: AlertService
 
     ) { }
 
   ngOnInit() {
-    this.getMyProfile();
+      this.getMyProfile();
+      this.postForm = this.formBuilder.group({
+        image_url: ['', Validators.required],
+        text_image:[''],
+        tags_image:['']
+      });
   }
+  get f() { return this.postForm.controls; }
 
   getMyProfile() {
     this.usersService.getProfile(this.route.snapshot.params['page'])
     .subscribe(res => {
                         this.info = res.info;
                         this.user = res.user;
-                        this.totalPosts = res.pageQt;
+                        this.totalPosts = res.totalPosts;
                         console.log(this.info);
                         console.log(this.user);
                         console.log(this.totalPosts);
@@ -45,20 +61,43 @@ export class ProfileComponent implements OnInit {
     var win = window.open(url, '_blank');
     win.focus();
   }
+  
   /**modal scroll */
   openScrollableContent(longContent) {
     this.modalService.open(longContent, { scrollable: true });
   }
 
-  createPhoto(photoForm) {
-    console.log(`Chamando criação ${photoForm.tags_image}`)
-    this.usersService.createPost(photoForm.image_url, photoForm.text_image, photoForm.tags_image, photoForm.legend).subscribe(res => {
-      console.log("funciona postar foto");
-    });
+  resetForm() {
+    this.submitted = false;
+    this.f.image_url.setValue("");
+    return;
+  }
+
+  createPhoto() {
+      this.submitted = true;
+      this.alertService.clear();
+
+      if (this.postForm.invalid) {
+        return;
+      }
+      this.loading = true;
+   
+    console.log(`Chamando criação ${this.f.image_url}`)
+    this.usersService.createPost(this.f.image_url.value, this.f.text_image.value, this.f.tags_image.value)
+    .pipe(first())
+    .subscribe(
+                res => { this.postId = res.postId
+                  this.loading = false;
+                  alert('Post created!')
+                },
+                error => {
+                    this.alertService.error(error);
+                    this.loading = false;
+                    alert('connection error')
+                });
+      }
     
   }
 
   
-  
 
-}

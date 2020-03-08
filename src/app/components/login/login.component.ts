@@ -1,22 +1,30 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Injectable } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { AlertService } from '../../services/alert.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { first } from 'rxjs/operators';
+import { NavbarComponent } from '../navbar/navbar.component'
 
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { BehaviorSubject } from 'rxjs';
+
+@Injectable({ providedIn: 'root'})
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
   
 })
-export class LoginComponent implements OnInit {
 
+
+export class LoginComponent implements OnInit {
+  
+  private loggedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   loginForm: FormGroup;
   loading = false;
   submitted = false;
   returnUrl: string;
+
 
   constructor(
     private auth: AuthService,
@@ -25,11 +33,17 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private alertService: AlertService
   ) {
+
     // redirecionar para o home se estiver logado
     if (this.auth.login) { 
       this.router.navigate(['/instagamer/home']);
+      this.loggedIn.next(true);
     }
   } 
+
+  get isLoggedIn() {
+    return this.loggedIn.asObservable();
+  }
   
     ngOnInit() {
         this.loginForm = this.formBuilder.group({
@@ -39,14 +53,14 @@ export class LoginComponent implements OnInit {
 
         //URL de retorno dos parâmetros de rota ou usar como padrão '/'
         this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/instagamer/home';
-    }
+
+      }
 
     // pegar mais facilmente os dados do form
     get f() { return this.loginForm.controls; }
 
     onSubmit() {
         this.submitted = true;
-
          // reset alertas
         this.alertService.clear();
 
@@ -62,7 +76,7 @@ export class LoginComponent implements OnInit {
               .subscribe(
                   data => {
                     sessionStorage.setItem('token', data.token);
-                    this.router.navigate([this.returnUrl]);
+                    this.router.navigate([this.returnUrl]);   
                   },
                   error => {
                       this.alertService.error(error);
@@ -71,23 +85,7 @@ export class LoginComponent implements OnInit {
                   });
     }
 
-    logout() {
-          sessionStorage.removeItem('token');
-    }
-
-
+   
 
 }
   
-
-//   submit(formData) {
-//     this.auth.login(formData.email, formData.password).subscribe(res => {
-//       sessionStorage.setItem('token', res.token);
-//        this.router.navigate(['instagamer/login']);
-//     });
-//   }
-
-//   logout() {
-//     sessionStorage.removeItem('token');
-//   }
-// 

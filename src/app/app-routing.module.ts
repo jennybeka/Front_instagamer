@@ -17,13 +17,13 @@ export const routes: Routes = [
   { path: 'instagamer/profile/:page', component: ProfileComponent,  canActivate: [AuthGuard] },
   { path: 'instagamer/posts/create', component: ProfileComponent,  canActivate: [AuthGuard]},
   { path: 'instagamer/posts/photo/:id', component: PostsComponent,  canActivate: [AuthGuard]},
-  { path: 'instagamer/posts/:idPhoto', component: PostsComponent },
-  { path: 'instagamer/posts/comment/:idphoto', component: PostsComponent },
+  { path: 'instagamer/posts/:idPhoto', component: PostsComponent, canActivate: [AuthGuard] },
+  { path: 'instagamer/posts/comment/:idphoto', component: PostsComponent, canActivate: [AuthGuard] },
   { path: 'instagamer/posts/comment/:idcomment', component: PostsComponent },
   { path: 'instagamer/posts/like/:idphoto', component: PostsComponent },
   { path: 'instagamer/posts/dislike/:idLike', component: PostsComponent },
  
-  { path: 'instagamer/logout', component: HomeComponent },
+  // { path: 'instagamer/logout', component: HomeComponent },
 ];
 
 @NgModule({

@@ -1,28 +1,22 @@
-<!-- <div class="fixed-top">
-  <nav class="navbar navbar-light bg-faded">
-    <div class="container navbar">
-      <a class="navbar-brand" routerLink="">
-        <img src="/assets/ico/android-icon-48x48.png" />
-      </a>
-    </div> 
-  </nav>
-  <div class="menu">
-    <a class="navbar-brand" routerLink="">
-       <img src="/assets/ico/android-icon-48x48.png" /> 
+
+<header class="">
+<div class="container special-padding" *ngIf="verifyIsLoggedIn()">
+    <a [routerLink]="['/instagamer/home']" class="logo pull-left">
+       <img src="/assets/ico/android-icon-48x48.png" class="logo-text hidden-xs"/> 
     </a>
     <ul class="nav justify-content-end ">
       <li class="nav-item">
-        <a class="nav-link" routerLinkActive="active" routerLink="/instagamer/home">Home</a>
+        <a class="nav-link" routerLinkActive="active" routerLink="">Home</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" routerLinkActive="active" routerLink="/instagamer/profile">My Profile</a>
+        <a class="nav-link" routerLinkActive="active" [routerLink]="['/instagamer/profile', page]">My Profile</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" routerLinkActive="active" routerLink="/instagamer/login">Logout</a>
+        <a class="nav-link" routerLinkActive="active" [routerLink]="['/instagamer/posts', page]">My Friends</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" routerLinkActive="active" routerLink="/instagamer/posts">Posts</a>
+        <a class="nav-link" (click)="onLogout()" *ngIf="verifyIsLoggedIn()" routerLink="/instagamer/login" >Logout</a>
       </li>
     </ul>
-  </div>
-</div> -->
+</div>
+</header>
