@@ -38,9 +38,4 @@ export class PostsComponent implements OnInit {
     .subscribe(res => this.posts = res.posts);
   }
 
-  postComment(commentForm) {
-    this.postsService.createComment(commentForm.comment,commentForm.photoId, commentForm.userId)
-    .subscribe(res => this.posts = res.posts);
-  }
-
 }

@@ -53,15 +53,15 @@
     <div class="col-md-10 center-block clearfix" >
       <img src="" >
       <div class="profile">
-        <h2>Hi,{{user[0].name}}</h2>
+        <h2>Hi,{{profileName}}</h2>
       <hr>
           <img ngbTooltip="To change your gravatar, access: 'www.gravatar.com' " 
           data-toggle="tooltip" 
           data-placement="top" 
-          src="http://www.gravatar.com/avatar/{{user[0].gravatar_hash}}?d=wavatar" 
+          src="http://www.gravatar.com/avatar/{{profileGravatar}}?d=wavatar" 
           class="avatar rounded-circle" alt="My avatar"> 
 
-      <p>Following:{{user[0].seguindoCount || 0 }} <span class="spacing">Followers :{{user[0].seguidoresCount || 0}}</span>
+      <p>Following:{{profileFollowing || 0 }} <span class="spacing">Followers :{{profileFollowers || 0}}</span>
         <span class="spacing"> Posts:{{totalPosts}}</span></p>
     
     <button class="btn btn-outline-primary mb-2 mr-2" (click)="openScrollableContent(longContent)">New Post</button>
@@ -70,9 +70,67 @@
     </div>
     <hr>
     <div  class="col-md-12 center-block clearfix">
-      <a *ngFor="let photos of info " class="col-md-4 feed-thumbnail clearfix" [routerLink]="['/instagamer/posts/photo', photos.id]"> 
-        <img class="feed-thumbnail-img" [src]="photos.image_url"></a>
+      <a *ngFor="let photos of info " class="col-md-4 feed-thumbnail clearfix" > 
+        <img class="feed-thumbnail-img" [src]="photos.image_url" (click)="getDetailsPhoto(photos.id);openModalPhoto(modalPhoto)"></a>
     </div>
-    <a class="btn btn-blue" routerLink="">Load more</a>
-  
+    <!--MODAL DE IMAGEMM /////////////////////////////////////////////////////////////////////////////////// -->
+      <ng-template #modalPhoto let-modal>
+        <div class="modal-header">
+          <h4 class="modal-title">{{profileName}}</h4>
+          <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <!-- Card image -->
+        <div class="view overlay" style="text-align: center;">
+          <img class="card-img-top" src={{photoDetails[0]?.image_url}} alt="details image">
+          <div class="mask rgba-white-slight">
+           <p>{{photoDetails[0]?.text_photo}}</p> 
+          </div>
+        </div>
+        
+        <a>
+          <i class="fa fa-heart float-right" style="color:red;" data-toggle="tooltip" data-placement="top" title="I like it">{{photoDetails[0]?.likecount || 0}} </i>
+        </a>
+        <button type="submit" (click)="giveLike(photoDetails[0]?.id);getDetailsPhoto(photoDetails[0]?.id)">
+          Like
+        </button>
 
+        <button type="submit" (click)="removeLike(photoDetails[0]?.id);getDetailsPhoto(photoDetails[0]?.id)">
+          Dislike
+        </button>
+
+        <div class="modal-body" *ngFor="let details of photoComments">
+          <p class="card-text">{{details.username}}->{{ details.comment_text }}</p>
+        </div>
+        <form [formGroup]="commentForm" >
+          <div class="form-group">
+            <input type="text" class="form-control" formControlName="comments">
+
+            
+            
+            
+            
+            <button type="submit" class="btn btn-outline-success btn-sm"
+            (click)="createComment(photoDetails[0]?.id);getDetailsPhoto(photoDetails[0]?.id)">
+              Send comment
+          </button>
+
+      
+      
+      
+      
+            <!-- Button --> 
+          </div>
+            <!-- <a class="btn btn-flat red-text p-1 my-1 mr-0 mml-1 collapsed" data-toggle="collapse" href="#collapseContent" aria-expanded="false" aria-controls="collapseContent">OXE</a> -->
+            <!-- <i class="fas fa-share-alt text-muted float-right p-1 my-1" data-toggle="tooltip" data-placement="top" title="Share this post"></i> -->
+            <!-- <i class="fas fa-heart text-muted float-right p-1 my-1 mr-3" data-toggle="tooltip" data-placement="top" title="I like it"></i> -->
+        </form>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+        </div>
+      </ng-template>
+<!---------------- FIM MODAL DE IMAGEMM /////////////////////////////////////////////////////////////////////////////////// -->
+    <a class="btn btn-blue"  (click)="loadMorePhotos()">Load more</a>
+  
+    <!-- [routerLink]="['/instagamer/posts/photo', photos.id]" -->

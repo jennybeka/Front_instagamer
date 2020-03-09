@@ -46,17 +46,26 @@ export class PostsService {
       const headers = new HttpHeaders({
       Authorization: 'Bearer ' + token
     });
-
-    return this.http.get(`http://localhost:3001/instagamer/posts/like/${idphoto}`, { headers });
+      return this.http.get(`http://localhost:3001/instagamer/posts/like/${idphoto}`, { headers });
     }
 
-    createComment(comment: string, photoId: string, userId: number): Observable<any> {
+    dislike(idphoto:number){
+
+      const token = sessionStorage.getItem('token');
+      const headers = new HttpHeaders({
+      Authorization: 'Bearer ' + token
+    });
+      return this.http.delete(`http://localhost:3001/instagamer/posts/dislike/${idphoto}`, { headers });
+    }
+
+    createComment(comment_text: string, photoId: number): Observable<any> {
       const token = sessionStorage.getItem('token');
       const headers = new HttpHeaders({
       Authorization: 'Bearer ' + token
     });
 
-    return this.http.post(`http://localhost:3001/instagamer/posts/comment/${photoId}`,{comment, userId, photoId}, {headers});
+
+    return this.http.post(`http://localhost:3001/instagamer/posts/postcomment`,{comment_text, photoId}, {headers});
     }
 
 

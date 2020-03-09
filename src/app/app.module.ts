@@ -16,6 +16,7 @@ import { AuthGuard } from './services/auth.guard';
 import { NgbModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AlertComponent } from './components/alert/alert.component';
 import { AuthService } from './services/auth.service';
+import { FilterPipe } from './filter.pipe';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { AuthService } from './services/auth.service';
     NavbarComponent,
     FooterComponent,
     AlertComponent,
+    FilterPipe,
     
   ],
   imports: [

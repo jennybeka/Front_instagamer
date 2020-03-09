@@ -28,3 +28,11 @@ header { background:white center no-repeat; line-height: 76px; margin-bottom: 30
       max-width: 100%;
     }
   }
+
+@media (min-width: 576px){
+    .col-sm-6 {
+    -webkit-box-flex: 0;
+    flex: 0 0 50%;
+    max-width: 50%;
+    }
+}

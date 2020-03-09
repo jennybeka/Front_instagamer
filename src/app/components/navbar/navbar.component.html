@@ -5,11 +5,22 @@
        <img src="/assets/ico/android-icon-48x48.png" class="logo-text hidden-xs"/> 
     </a>
     <ul class="nav justify-content-end ">
+      <li>
+        <!-- <div class="md-form">
+        <form class="form-inline md-form mr-auto mb-4">
+          <input class="form-control mr-sm-2" type="search" [(ngModel)]="searchText" placeholder="Search" aria-label="Search">
+          <ul *ngFor="let data of dataset | filter: searchText">
+            <li>{{data}}</li>
+          </ul>
+          <button mdbBtn size="sm" color="elegant" rounded="true" class="my-0 waves-light" mdbWavesEffect type="submit">Search</button>
+        </form>
+      </div> -->
+      </li>
       <li class="nav-item">
         <a class="nav-link" routerLinkActive="active" routerLink="">Home</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" routerLinkActive="active" [routerLink]="['/instagamer/profile', page]">My Profile</a>
+        <a class="nav-link" routerLinkActive="active" [routerLink]="['/instagamer/profile', page || 0]">My Profile</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" routerLinkActive="active" [routerLink]="['/instagamer/posts', page]">My Friends</a>

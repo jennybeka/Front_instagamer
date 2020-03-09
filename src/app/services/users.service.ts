@@ -16,7 +16,6 @@ export class UsersService {
     const headers = new HttpHeaders({
       Authorization: 'Bearer ' + token
     });
-    console.log(`Chamando aquiiiii`)
     return this.http.get(`http://localhost:3001/instagamer/profile/${page}`, { headers });
   }
 
@@ -25,7 +24,6 @@ export class UsersService {
     const headers = new HttpHeaders({
       Authorization: 'Bearer ' + token
     });
-    console.log(`Chamando o outro ${tags_image}`)
     return this.http.post('http://localhost:3001/instagamer/posts/create', {image_url, text_photo, tags_image}, { headers } );
   }
 
