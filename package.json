@@ -1,5 +1,5 @@
 {
-  "name": "instaGamer",
+  "name": "instagamer",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
@@ -52,5 +52,13 @@
   "description": "This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.20.",
   "main": "karma.conf.js",
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jennybeka/Front_instagamer.git"
+  },
+  "bugs": {
+    "url": "https://github.com/jennybeka/Front_instagamer/issues"
+  },
+  "homepage": "https://github.com/jennybeka/Front_instagamer#readme"
 }

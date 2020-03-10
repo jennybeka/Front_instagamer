@@ -4,3 +4,15 @@
   .collapse-content .fa.fa-share-alt:hover {
     color: #0d47a1 !important;
   }
+
+  #myColor:before {  
+    color: rgb(252, 32, 4)  
+    }  
+
+ /* .myColor1 {
+  --color: white;
+ }
+ #myColor:checked ~ .a {
+  color: rgb(252, 32, 4)  
+ 
+ } */

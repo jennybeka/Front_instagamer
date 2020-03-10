@@ -1,60 +1,108 @@
+<div class="col-sm-6 offset-sm-3" style="margin-bottom:20px;">
+  <!-- Card -->
+  <div class="card promoting-card" *ngFor="let postFriend of posts" style="padding:10px; margin-top:30px;">
 
-<!-- <a [routerLink]="['/instagamer/profile', page]"><h1>Pagina HOME</h1></a> -->
+    <!-- Card content -->
+    <div class="card-body d-flex flex-row">
 
+      <!-- Avatar -->
+      <img ngbTooltip="To change your gravatar, access: 'www.gravatar.com' " data-toggle="tooltip" data-placement="top"
+        src="http://www.gravatar.com/avatar/{{postFriend.gravatar_hash}}?d=wavatar" class="rounded-circle mr-3"
+        height="50px" width="50px" alt="avatar">
 
-<div class="col-sm-6 offset-sm-3">
-<!-- Card -->
-<div class="card promoting-card">
+      <!-- Content -->
+      <div>
 
-  <!-- Card content -->
-  <div class="card-body d-flex flex-row">
+        <!-- Title -->
+        <h4 class="card-title font-weight-bold mb-2">{{postFriend.username}}</h4>
+        <!-- Subtitle -->
+        <p class="card-text"><i class="far fa-clock pr-2"></i>{{postFriend.created_at}}</p>
 
-    <!-- Avatar -->
-    <img src="//www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?r=pg" class="rounded-circle mr-3" height="50px" width="50px" alt="avatar">
-
-    <!-- Content -->
-    <div>
-
-      <!-- Title -->
-      <h4 class="card-title font-weight-bold mb-2">New spicy meals</h4>
-      <!-- Subtitle -->
-      <p class="card-text"><i class="far fa-clock pr-2"></i>07/24/2018</p>
+      </div>
 
     </div>
 
-  </div>
-
-  <!-- Card image -->
-  <div class="view overlay">
-    <img class="card-img-top rounded-0" src="https://mdbootstrap.com/img/Photos/Horizontal/Food/full page/2.jpg" alt="Card image cap">
-    <a href="#!">
-      <div class="mask rgba-white-slight">uuuuuuuuuu</div>
-    </a>
-  </div>
-
-  <!-- Card content -->
-  <div class="card-body">
-
-    <div class="collapse-content">
-
-      <!-- Text -->
-      <p class="card-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ut eum similique repellat a laborum, rerum voluptates ipsam eos quo tempore iusto dolore modi dolorum in pariatur. Incidunt repellendus praesentium quae!</p>
-      <!-- COMMENTS -->
-      <p>Comment</p>
-        <form [formGroup]="commentForm" (ngSubmit)="sendComment()">
-          <div class="form-group">
-            <textarea name="text" class="form-control"  class="comments"></textarea>
-            <input type="submit" value="comments" formControlName="comments" class="btn btn-outline-success btn-sm" ngModel>
-      <!-- Button --> 
-          </div>
-      <a class="btn btn-flat red-text p-1 my-1 mr-0 mml-1 collapsed" data-toggle="collapse" href="#collapseContent" aria-expanded="false" aria-controls="collapseContent"></a>
-      <i class="fas fa-share-alt text-muted float-right p-1 my-1" data-toggle="tooltip" data-placement="top" title="Share this post"></i>
-      <i class="fas fa-heart text-muted float-right p-1 my-1 mr-3" data-toggle="tooltip" data-placement="top" title="I like it"></i>
-    </form>
+    <!-- Card image -->
+    <div class="view overlay">
+      <img class="card-img-top rounded-0" [src]="postFriend.image_url" alt="Card image cap"
+        (click)="getDetailsPhoto(postFriend.id);openModalPhoto(modalPhoto)">
+      <p>
+        <div class="mask rgba-white-slight">{{postFriend.commentcount || 0}} comments | {{ postFriend.likecount || 0}}
+          likes |
+          <p class="card-text">{{ postFriend.text_photo }}</p>
+        </div>
+        <p>
     </div>
 
   </div>
+  <!--End Ngfor-->
+  <!-- Card -->
+  <div class="button" style="text-align: center;padding: 20px;">
+    <a class="btn btn-blue" (click)="loadMorePosts()">Load more</a>
+  </div>
+</div>
 
-</div>
-<!-- Card -->
-</div>
+
+
+<!------------------------ Modal de imagem, aberto quando clicar na IMG ---------------------------->
+<ng-template #modalPhoto let-modal class="modal-content" style="padding: 10px;">
+  <div class="modal-header">
+
+    <!-- topo do modal -->
+    <img ngbTooltip="To change your gravatar, access: 'www.gravatar.com' " data-toggle="tooltip" data-placement="top"
+      src="http://www.gravatar.com/avatar/{{photoDetails[0]?.gravatar_hash}}?d=wavatar" class="rounded-circle mr-3"
+      height="50px" width="50px" alt="avatar">
+    <h4 class="modal-title">{{photoDetails[0]?.username}}</h4>
+    <!-- end topo modal -->
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <!--  details image -->
+  <div class="view overlay" style="text-align: center;">
+    <img class="card-img-top" style="padding: 10px;" src={{photoDetails[0]?.image_url}} alt="details image">
+    <div class="mask rgba-white-slight">
+      <p>{{photoDetails[0]?.text_photo}}</p>
+    </div>
+  </div>
+  <!--  like -->
+  <div style="text-align:right">
+    <!-- button like -->
+    <button type="submit" class="btn btn-outline"
+      (click)="giveLike(photoDetails[0]?.id);getDetailsPhoto(photoDetails[0]?.id);postsMyFriends()">LIKE</button>
+
+    <i class="fa fa-heart" style="color:red;" data-toggle="tooltip" data-placement="top" title="I like it">
+      {{photoDetails[0]?.likecount ||  0}} </i>
+
+    <!-- button Dislike -->
+    <button type="submit" class="btn btn-outline"
+      (click)="removeLike(photoDetails[0]?.id);getDetailsPhoto(photoDetails[0]?.id);postsMyFriends()">DISLIKE</button>
+
+  </div>
+
+  <div class="modal-body">
+    <div class="card-text" *ngFor="let comment of photoComments">
+      <p>{{comment.username}} ->{{ comment.comment_text }}
+        <a>
+          <i class="fa fa-trash float-left p-1 my-1 mr-3"
+            (click)="deleteComment(comment?.id);getDetailsPhoto(photoDetails[0]?.id);"></i>
+        </a>
+      </p>
+    </div>
+  </div>
+  <form [formGroup]="commentForm">
+    <div class="md-form">
+      <i class="fas fa-pencil-alt prefix"></i>
+      <textarea name="text" class="form-control" rows="1" formControlName="comments"></textarea>
+      <!-- Button -->
+      <button type="submit" class="btn btn-outline-success btn-sm"
+        (click)="createComment(photoDetails[0]?.id);getDetailsPhoto(photoDetails[0]?.id)">
+        Send comment
+      </button>
+    </div>
+    <!-- Form -->
+  </form>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+  </div>
+</ng-template>

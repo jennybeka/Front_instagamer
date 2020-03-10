@@ -10,13 +10,13 @@ export class AuthGuard implements CanActivate {
     canActivate(
         route: ActivatedRouteSnapshot,
         state: RouterStateSnapshot): Observable<boolean> | boolean {
-              // authorised so return true
+        // authorised so return true
         if (sessionStorage.getItem('token') != null) {
             return true;
-        } 
+        }
         // alert('You are not allowed to view this page');
         this.router.navigate(['/instagamer/login']);
         return false;
-        
+
     }
 }

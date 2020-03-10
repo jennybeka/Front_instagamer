@@ -21,16 +21,16 @@ export class NavbarComponent implements OnInit {
 
   ngOnInit() {
     this.verifyIsLoggedIn();
-  
-   }
 
-  verifyIsLoggedIn(): boolean{
-    return  this.navbar.returnIsLoggedIn();
+  }
+
+  verifyIsLoggedIn(): boolean {
+    return this.navbar.returnIsLoggedIn();
   }
 
   onLogout() {
     this.navbar.logout();
   }
-  
+
 
 }

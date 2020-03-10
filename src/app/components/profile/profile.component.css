@@ -24,10 +24,16 @@ span.spacing {
 .dark-modal .modal-content {
     background-color: #292b2c;
     color: white;
+    padding: 15px;
+    overflow-y: auto;
   }
   .dark-modal .close {
     color: white;
   }
   .light-blue-backdrop {
     background-color: #5cb3fd;
+  }
+
+  .modal-content {
+    overflow-y: auto;
   }

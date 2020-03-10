@@ -4,7 +4,7 @@ import { Observable, Subject } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class AlertService {
-    
+
     private subject = new Subject<any>();
     private keepAfterRouteChange = false;
 
@@ -37,13 +37,13 @@ export class AlertService {
         if (rawMessage.includes("Duplicate entry")) {
             realMessage = "Can't register. User already exists.";
 
-        } else if(rawMessage.includes("connect ECONNREFUSED")){
+        } else if (rawMessage.includes("connect ECONNREFUSED")) {
             realMessage = "Connection Error";
-        } else{
+        } else {
             // Aqui serão mapeados as próximas mensagens
             //TODO mapear próximos erros
-            
-            
+
+
             // Se o erro não está mapeado, ele deve ser retornado para que seja visivel e entao possamos mapear depois
             realMessage = `Error 400 not mapped. Raw message: ${rawMessage}`;
         }
@@ -55,7 +55,7 @@ export class AlertService {
     error(error: any, keepAfterRouteChange = false) {
         let message: String;
         console.log(error)
-        switch(error['status']){
+        switch (error['status']) {
             case 401: {
                 message = 'Username or password is incorrect';
                 break;
@@ -70,7 +70,7 @@ export class AlertService {
                 message = `Status not mapped: ${error['status']}. Raw error message: ${error['error']['message']}`;
                 break;
             }
-          
+
         }
 
         this.keepAfterRouteChange = keepAfterRouteChange;

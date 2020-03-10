@@ -9,27 +9,27 @@ import { Router } from '@angular/router';
 
 export class AuthService {
 
-  
+
   constructor(
     private http: HttpClient,
     private router: Router,
-    
+
   ) { }
 
-  
-  returnIsLoggedIn(): boolean{
+
+  returnIsLoggedIn(): boolean {
     // authorised so return true
     if (sessionStorage.getItem('token') != null) {
-    return true;
-    }  
+      return true;
+    }
   }
 
   login(email: string, password: string): Observable<any> {
     return this.http.post('http://localhost:3001/instagamer/login', { email, password });
-    
+
   }
 
-  logout() {
+  logout() {
     sessionStorage.removeItem('token');
   }
 

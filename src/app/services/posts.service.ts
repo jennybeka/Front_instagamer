@@ -11,17 +11,17 @@ export class PostsService {
     private http: HttpClient
   ) { }
 
-    /**Pegar todoas os posts de quem eu sigo */
-    getAllUsers(page: number): Observable<any> {
-      const token = sessionStorage.getItem('token');
-      const headers = new HttpHeaders({
-        Authorization: 'Bearer ' + token
-      });
-  
-      return this.http.get(`http://localhost:3001/instagamer/posts/${page}`, { headers });
-    }
+  /**Setar todas os posts de quem eu sigo */
+  getAllUsers(page: number): Observable<any> {
+    const token = sessionStorage.getItem('token');
+    const headers = new HttpHeaders({
+      Authorization: 'Bearer ' + token
+    });
 
-  /**Pegar todoas os posts de quem eu sigo */
+    return this.http.get(`http://localhost:3001/instagamer/posts/${page}`, { headers });
+  }
+
+  /**Setar todoas os posts de quem eu sigo */
   getPublicPosts(page: number): Observable<any> {
     const token = sessionStorage.getItem('token');
     const headers = new HttpHeaders({
@@ -31,8 +31,8 @@ export class PostsService {
     return this.http.get(`http://localhost:3001/instagamer/posts/${page}`, { headers });
   }
 
-  /**Pegar as informações de uma foto especifica, comentarios, likes e tags */
-  getPhotoDetails(id:number): Observable<any> {
+  /**Setar as informações de uma foto especifica, comentarios, likes e tags */
+  getPhotoDetails(id: number): Observable<any> {
     const token = sessionStorage.getItem('token');
     const headers = new HttpHeaders({
       Authorization: 'Bearer ' + token
@@ -41,33 +41,40 @@ export class PostsService {
     return this.http.get(`http://localhost:3001/instagamer/posts/photo/${id}`, { headers });
   }
 
-    like(idphoto:number){
-      const token = sessionStorage.getItem('token');
-      const headers = new HttpHeaders({
+  like(idphoto: number) {
+    const token = sessionStorage.getItem('token');
+    const headers = new HttpHeaders({
       Authorization: 'Bearer ' + token
     });
-      return this.http.get(`http://localhost:3001/instagamer/posts/like/${idphoto}`, { headers });
-    }
+    return this.http.get(`http://localhost:3001/instagamer/posts/like/${idphoto}`, { headers });
+  }
 
-    dislike(idphoto:number){
+  dislike(idphoto: number) {
 
-      const token = sessionStorage.getItem('token');
-      const headers = new HttpHeaders({
+    const token = sessionStorage.getItem('token');
+    const headers = new HttpHeaders({
       Authorization: 'Bearer ' + token
     });
-      return this.http.delete(`http://localhost:3001/instagamer/posts/dislike/${idphoto}`, { headers });
-    }
+    return this.http.delete(`http://localhost:3001/instagamer/posts/dislike/${idphoto}`, { headers });
+  }
 
-    createComment(comment_text: string, photoId: number): Observable<any> {
-      const token = sessionStorage.getItem('token');
-      const headers = new HttpHeaders({
+  createComment(comment_text: string, photoId: number): Observable<any> {
+    const token = sessionStorage.getItem('token');
+    const headers = new HttpHeaders({
       Authorization: 'Bearer ' + token
     });
+    return this.http.post(`http://localhost:3001/instagamer/posts/postcomment`, { comment_text, photoId }, { headers });
+  }
+
+  getDeleteComment(idComment: number) {
+
+    const token = sessionStorage.getItem('token');
+    const headers = new HttpHeaders({
+      Authorization: 'Bearer ' + token
+    });
+    return this.http.delete(`http://localhost:3001/instagamer/posts/comment/${idComment}`, { headers });
+  }
 
 
-    return this.http.post(`http://localhost:3001/instagamer/posts/postcomment`,{comment_text, photoId}, {headers});
-    }
 
-
-      
 }

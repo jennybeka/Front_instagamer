@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -30,7 +30,7 @@ import { FilterPipe } from './filter.pipe';
     FooterComponent,
     AlertComponent,
     FilterPipe,
-    
+
   ],
   imports: [
     BrowserModule,
@@ -39,7 +39,7 @@ import { FilterPipe } from './filter.pipe';
     FormsModule,
     NgbModule,
     ReactiveFormsModule
-    
+
   ],
   providers: [AuthGuard, LoginComponent, AuthService],
   bootstrap: [AppComponent]

@@ -6,7 +6,7 @@ import { ActivatedRoute } from '@angular/router';
   selector: 'app-posts-list',
   templateUrl: './posts.component.html',
   styleUrls: ['./posts.component.css'],
- 
+
 })
 export class PostsComponent implements OnInit {
 
@@ -15,10 +15,10 @@ export class PostsComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private postsService: PostsService
-    
+
   ) {
-  this.route.params.subscribe(res => console.log(res.id));
-  this.route.params.subscribe(res => console.log(res.page));
+    this.route.params.subscribe(res => console.log(res.id));
+    this.route.params.subscribe(res => console.log(res.page));
   }
 
   ngOnInit() {
@@ -27,15 +27,15 @@ export class PostsComponent implements OnInit {
 
   getPosts() {
     this.postsService.getPublicPosts(this.route.snapshot.params['page'])
-    .subscribe(res =>{
-                  this.posts = res.posts
-                  this.totalPosts = res.pageQt;
-               });
+      .subscribe(res => {
+        this.posts = res.posts
+        this.totalPosts = res.pageQt;
+      });
   }
 
   getPhoto() {
     this.postsService.getPhotoDetails(this.route.snapshot.params['id'])
-    .subscribe(res => this.posts = res.posts);
+      .subscribe(res => this.posts = res.posts);
   }
 
 }

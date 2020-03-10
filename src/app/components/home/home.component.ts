@@ -4,41 +4,139 @@ import { AlertService } from '../../services/alert.service';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UsersService } from 'src/app/services/users.service';
+import { PostsService } from 'src/app/services/posts.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
-  
+
 })
 export class HomeComponent implements OnInit {
 
+  myColor: string;
+  posts: any[] = [];
+  totalPosts: number;
   page: number = 0;
+  controlPage: number = 0;
   commentForm: FormGroup;
   loading = false;
   submitted = false;
+  
+
+  // detalhes photo
+
+  photoDetails: any[] = [];
+  photoTags: any[];
+  photoComments: any[];
 
 
   constructor(
-    private auth: AuthService,
+    private userService: UsersService,
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
+    private modalService: NgbModal,
     private router: Router,
-    private alertService: AlertService
-  ) { }
+    private alertService: AlertService,
+    private postsService: PostsService,
+  ) {
+    this.route.params.subscribe(res => console.log(res.id));
+    this.route.params.subscribe(res => console.log(res.page));
+    this.myColor = 'red';
+    this.myColor = 'primary';
+  }
 
   ngOnInit() {
+    this.postsMyFriends();
     this.commentForm = this.formBuilder.group({
-      comments: ['', ]
-  });
+      comments: ['',]
+    });
   }
 
-  sendComment(){
-    this.submitted = true;
+  postsMyFriends() {
+    this.userService.getMyFriends(this.route.snapshot.params['page'])
+      .subscribe(res => {
+        this.posts = res.posts
+        this.totalPosts = res.totalPosts;
+
+      });
+  }
+  getDetailsPhoto(photoId: number) {
+    this.postsService.getPhotoDetails(photoId)
+      .subscribe(
+        res => {
+          this.photoDetails = res.photo
+          console.log(photoId)
+          this.photoTags = res.tags
+          this.photoComments = res.comments
+        });
   }
 
-  logout() {
+  loadMorePosts() {
+    this.controlPage++;
+    this.userService.getMyFriends(this.route.snapshot.params['page'] + this.controlPage)
+      .subscribe(res => {
+        for (let post of res.posts) {
+          this.posts.push(post);
+        };
+
+      })
+  }
+  // mesmas funções do profile (LIKE, DISLIKE, CREATECOMMENT) (tentar ajustar com @INPUT OUTPUT e SERVIÇOS)
+  giveLike(photoId: number) {
+    this.postsService.like(photoId)
+      .subscribe(
+        res => {
+          console.log("Retorno LIKE BD")
+          console.log(res)
+        });
+  }
+  removeLike(photoId: number) {
+
+    this.postsService.dislike(photoId)
+      .subscribe(
+        res => {
+          console.log("Retorno DISLIKE BD")
+          console.log(res)
+        });
+  }
+
+
+  get c() { return this.commentForm.controls; }
+
+  createComment(photoId: number) {
+    this.postsService.createComment(this.c.comments.value, photoId)
+      .subscribe(
+        res => {
+          console.log("Retorno POSTCOMMENT BD")
+          this.c.comments.setValue("");
+          console.log(res)
+        },
+        error => {
+          this.alertService.error(error);
+          this.loading = false;
+          alert('connection error')
+        });
+  }
+
+  deleteComment(idComment: number) {
+    this.postsService.getDeleteComment(idComment)
+      .subscribe(
+        res => {
+          console.log(res)
+        });
+  }
+
+  /**modal scroll 2 */
+  openModalPhoto(modalPhoto) {
+    console.log("chamou o modal aqui")
+    this.modalService.open(modalPhoto, { scrollable: true });
+  }
+
+  logout() {
     sessionStorage.removeItem('token');
   }
 
- 
+
 }
