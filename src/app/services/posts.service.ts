@@ -11,16 +11,6 @@ export class PostsService {
     private http: HttpClient
   ) { }
 
-  /**Setar todas os posts de quem eu sigo */
-  getAllUsers(page: number): Observable<any> {
-    const token = sessionStorage.getItem('token');
-    const headers = new HttpHeaders({
-      Authorization: 'Bearer ' + token
-    });
-
-    return this.http.get(`http://localhost:3001/instagamer/posts/${page}`, { headers });
-  }
-
   /**Setar todoas os posts de quem eu sigo */
   getPublicPosts(page: number): Observable<any> {
     const token = sessionStorage.getItem('token');

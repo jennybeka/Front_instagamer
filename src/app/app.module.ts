@@ -17,6 +17,7 @@ import { NgbModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AlertComponent } from './components/alert/alert.component';
 import { AuthService } from './services/auth.service';
 import { FilterPipe } from './filter.pipe';
+import { SearchComponent } from './components/search/search.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { FilterPipe } from './filter.pipe';
     FooterComponent,
     AlertComponent,
     FilterPipe,
+    SearchComponent,
 
   ],
   imports: [

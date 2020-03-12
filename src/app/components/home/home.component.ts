@@ -43,8 +43,7 @@ export class HomeComponent implements OnInit {
   ) {
     this.route.params.subscribe(res => console.log(res.id));
     this.route.params.subscribe(res => console.log(res.page));
-    this.myColor = 'red';
-    this.myColor = 'primary';
+  
   }
 
   ngOnInit() {
@@ -67,7 +66,6 @@ export class HomeComponent implements OnInit {
       .subscribe(
         res => {
           this.photoDetails = res.photo
-          console.log(photoId)
           this.photoTags = res.tags
           this.photoComments = res.comments
         });

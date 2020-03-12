@@ -5,27 +5,18 @@
     </a>
     <ul class="nav justify-content-end ">
       <li>
-        <!-- <div class="md-form">
-        <form class="form-inline md-form mr-auto mb-4">
-          <input class="form-control mr-sm-2" type="search" [(ngModel)]="searchText" placeholder="Search" aria-label="Search">
-          <ul *ngFor="let data of dataset | filter: searchText">
-            <li>{{data}}</li>
-          </ul>
-          <button mdbBtn size="sm" color="elegant" rounded="true" class="my-0 waves-light" mdbWavesEffect type="submit">Search</button>
-        </form>
-      </div> -->
       </li>
       <li class="nav-item">
-        <a class="nav-link" routerLinkActive="active"  [routerLink]="['instagamer/home', page || 0]">Home</a>
+        <a class="nav-link" routerLinkActive="active" [routerLink]="['instagamer/home', page || 0]"> <i class="fa fa-home" aria-hidden="true"></i></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" routerLinkActive="active" [routerLink]="['/instagamer/profile', page || 0]">My Profile</a>
+        <a class="nav-link" routerLinkActive="active" [routerLink]="['/instagamer/profile', page || 0]"><i class="fa fa-user-o" aria-hidden="true"></i></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" routerLinkActive="active" [routerLink]="['/instagamer/posts', page || 0]">My Friends</a>
+        <a class="nav-link" routerLinkActive="active" [routerLink]="['instagamer/posts/all', page || 0]"><i class="fa fa-search" aria-hidden="true"></i></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" (click)="onLogout()" *ngIf="verifyIsLoggedIn()" routerLink="/instagamer/login">Logout</a>
+        <a class="nav-link" (click)="onLogout()" *ngIf="verifyIsLoggedIn()" routerLink="/instagamer/login"><i class="fa fa-sign-out" aria-hidden="true"></i></a>
       </li>
     </ul>
   </div>

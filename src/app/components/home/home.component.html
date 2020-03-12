@@ -68,15 +68,15 @@
   <!--  like -->
   <div style="text-align:right">
     <!-- button like -->
-    <button type="submit" class="btn btn-outline"
-      (click)="giveLike(photoDetails[0]?.id);getDetailsPhoto(photoDetails[0]?.id);postsMyFriends()">LIKE</button>
+    <button type="submit" class="fa fa-thumbs-up btn-light"
+      (click)="giveLike(photoDetails[0]?.id);getDetailsPhoto(photoDetails[0]?.id);postsMyFriends()"></button>
 
-    <i class="fa fa-heart" style="color:red;" data-toggle="tooltip" data-placement="top" title="I like it">
+    <i class="fa fa-heart" style="color:red; font-size:28px; margin: 10px;" data-toggle="tooltip" data-placement="top" title="I like it">
       {{photoDetails[0]?.likecount ||  0}} </i>
 
     <!-- button Dislike -->
-    <button type="submit" class="btn btn-outline"
-      (click)="removeLike(photoDetails[0]?.id);getDetailsPhoto(photoDetails[0]?.id);postsMyFriends()">DISLIKE</button>
+    <button type="submit" class="fa fa-thumbs-down btn-light"
+      (click)="removeLike(photoDetails[0]?.id);getDetailsPhoto(photoDetails[0]?.id);postsMyFriends()"></button>
 
   </div>
 
@@ -92,17 +92,18 @@
   </div>
   <form [formGroup]="commentForm">
     <div class="md-form">
-      <i class="fas fa-pencil-alt prefix"></i>
+      <i class="fa fa-comments-o prefix"></i>
       <textarea name="text" class="form-control" rows="1" formControlName="comments"></textarea>
       <!-- Button -->
       <button type="submit" class="btn btn-outline-success btn-sm"
         (click)="createComment(photoDetails[0]?.id);getDetailsPhoto(photoDetails[0]?.id)">
-        Send comment
+        Send
       </button>
+       <button type="button" class="btn btn-light" style="float: right;" (click)="modal.close('Close click')">Close</button>
     </div>
     <!-- Form -->
   </form>
-  <div class="modal-footer">
-    <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+  <div >
+   
   </div>
 </ng-template>

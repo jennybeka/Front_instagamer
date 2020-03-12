@@ -6,7 +6,7 @@ import { HomeComponent } from './components/home/home.component'
 import { PostsComponent } from './components/posts/posts.component'
 import { RegisterComponent } from './components/register/register.component';
 import { ProfileComponent } from './components/profile/profile.component';
-
+import { SearchComponent } from './components/search/search.component';
 
 export const routes: Routes = [
   { path: 'instagamer/home/:page', component: HomeComponent, canActivate: [AuthGuard] },
@@ -19,10 +19,10 @@ export const routes: Routes = [
   { path: 'instagamer/posts/photo/:id', component: PostsComponent, canActivate: [AuthGuard] },
   { path: 'instagamer/posts/:idPhoto', component: PostsComponent, canActivate: [AuthGuard] },
   { path: 'instagamer/posts/comment/:idphoto', component: PostsComponent, canActivate: [AuthGuard] },
-  { path: 'instagamer/posts/comment/:idcomment', component: PostsComponent },
-  { path: 'instagamer/posts/like/:idphoto', component: PostsComponent },
-  { path: 'instagamer/posts/dislike/:idLike', component: PostsComponent },
-
+  { path: 'instagamer/posts/comment/:idcomment', component: PostsComponent, canActivate: [AuthGuard] },
+  { path: 'instagamer/posts/like/:idphoto', component: PostsComponent, canActivate: [AuthGuard] },
+  { path: 'instagamer/posts/dislike/:idLike', component: PostsComponent, canActivate: [AuthGuard] },
+  { path: 'instagamer/posts/all/:page', component: SearchComponent, canActivate: [AuthGuard] },
   // { path: 'instagamer/logout', component: HomeComponent },
 ];
 

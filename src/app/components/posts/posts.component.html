@@ -1,12 +1,59 @@
+<div class="bg">
+  <div class="search-bar p-3 p-lg-1 pl-lg-4">
+    <!-- Inicio div SEARCH BAR -->
+    <div class="container">
+  
+      <form [formGroup]="pesquisa" class="busca">
+        <div class="row search">
+          <!-- Inicio div row -->
+          <div class="console col-lg-6 d-flex align-items-center form-group">
+            <input type="text" class="form-control" placeholder="Qual Console?" class="form-control border-0 shadow-0"
+              formControlName="videoGame" #consolePesquisa (keyup)="qualConsole(consolePesquisa.value)" />
+          </div>
+          <div class="games col-lg-6 d-flex align-items-center form-group">
+            <input type="text" class="form-control" placeholder="Qual Jogo?" class="form-control border-0 shadow-0"
+              formControlName="jogo" #jogoPesquisa (keyup)="qualJogo(jogoPesquisa.value)" />
+          </div>
 
-<h1>Posts</h1>
-<ul *ngFor="let post of posts">
-  <li>{{ post.username }}</li>
-  <li><a [routerLink]="['/instagamer/posts/photo', post.id]"><img class="card-img-top" [src]="post.image_url"
-        class="rounded mx-auto d-block"></a></li>
-  <li>{{ post.text_photo }}</li>
-  <li>{{ post.likecount }}</li>
-  <li>{{ post.commentcount }}</li>
-  <li>{{ post.created_at }}</li>
-</ul>
-<a href="javascript:void(0)" class="btn btn-secondary" routerLink="/instagamer/home">Back</a>
+        </div><!-- FIM div row -->
+      </form>
+
+    </div><!-- FIM div SEARCH BAR -->
+
+    <!-- parte adicional de busca não encontrada -->
+    <div class="buscaNaoEncontrada" *ngIf="dadosNaoEncontrados">
+      <div class="row">
+        <div class="col-md-12">
+          <h2>Desculpe, dados não encontrados.</h2>
+        </div>
+      </div>
+    </div>
+    <!-- FIM parte adicional de busca não encontrada -->
+
+    <!-- inicio MostraR jogos -->
+    <div class="mostrarJogos">
+      <div class="row" style="margin-bottom: 50px">
+        <div class="col-md-4" *ngFor="let videogame of videogames">
+          <div>
+            <img class="img rounded mx-auto d-block" [src]="videogame.imagens[0].url">
+          </div>
+          <div class="card-block">
+            <h4 class="card-title">{{ videogame.nome }}</h4>
+            <!-- <p class="card-text">{{ videogame.curiosidades }}</p> -->
+            <p class="categoria"></p>
+            <div class="buttonJogos">
+              <a href="javascript:void(0)" [routerLink]="['/jogos', videogame.id]" class="btn btn-secondary">Ver
+                jogos</a>
+            </div>
+          </div>
+        </div>
+
+        <hr />
+      </div> <!-- FIM div CONTAINER -->
+
+    </div>
+    <!-- FIM MmostraR jogos -->
+
+
+  </div>
+</div>

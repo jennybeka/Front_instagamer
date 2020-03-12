@@ -8,7 +8,9 @@
   #myColor:before {  
     color: rgb(252, 32, 4)  
     }  
-
+.modal-body {
+  height: 80px;
+}
  /* .myColor1 {
   --color: white;
  }
