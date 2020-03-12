@@ -1,3 +1,15 @@
+## Running the server
+
+1) Step one:
+    * npm init
+    * npm install
+    * npm start
+    * it is necessary the project (instagamer) found in this github. (backend)
+
+2) Alternatively you can launch the app from the Terminal:
+
+    * node server.js
+
 # InstaGamer
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.20.
