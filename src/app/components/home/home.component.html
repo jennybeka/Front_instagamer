@@ -8,7 +8,7 @@
  </div>
  <!-- FIM parte adicional de busca não encontrada -->
 
- <div class="col-sm-6 offset-sm-3" style="margin-bottom:20px;">
+ <div class="card-container mx-auto" style="margin-bottom:20px;">
    <!-- Card -->
    <div class="card promoting-card" *ngFor="let postFriend of posts" style="padding:10px; margin-top:30px;">
 
@@ -24,7 +24,7 @@
        <div>
 
          <!-- Title -->
-         <a class="nav-link" routerLinkActive="active" [routerLink]="[postFriend.userId]">
+         <a class="nav-link pl-0" routerLinkActive="active" [routerLink]="[postFriend.userId]">
           <h4 class="card-title font-weight-bold mb-2">@{{postFriend.username}}</h4>
          </a>
     
@@ -37,14 +37,16 @@
 
      <!-- Card image -->
      <div class="view overlay">
-       <img class="card-img-top rounded-0" [src]="postFriend.image_url" alt="Card image cap" data-toggle="tooltip" title="Details"
-         (click)="getDetailsPhoto(postFriend.idPhoto);openModalPhoto(modalPhoto)">
+       <div class="text-center" (click)="getDetailsPhoto(postFriend.idPhoto);openModalPhoto(modalPhoto)">
+         <img class="card-img-top rounded-0" [src]="postFriend.image_url" alt="Card image cap" data-toggle="tooltip" title="Details">
+       </div>
        <p>
-         <div class="mask rgba-white-slight">{{postFriend.commentcount || 0}} comments | {{ postFriend.likecount || 0}}
-           likes |
-           <p class="card-text">{{ postFriend.text_photo }}</p>
-         </div>
-         <p>
+          <div class="mask rgba-white-slight">
+            {{postFriend.commentcount || 0}} comments |
+            {{ postFriend.likecount || 0}} likes
+            <p class="card-text">{{ postFriend.text_photo }}</p>
+          </div>
+        <p>
      </div>
 
    </div>
@@ -59,7 +61,7 @@
 
  <!------------------------ Modal de imagem, aberto quando clicar na IMG ---------------------------->
  <ng-template #modalPhoto let-modal class="modal-content" style="padding: 10px;">
-   <div class="modal-header">
+  <div class="modal-header">
 
      <!-- topo do modal -->
      <img 
@@ -70,55 +72,61 @@
      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
        <span aria-hidden="true">&times;</span>
      </button>
-   </div>
-   <!--  details image -->
-   <div class="view overlay" style="text-align: center;">
-     <img class="card-img-top" style="padding: 10px;" src={{photoDetails[0]?.image_url}} alt="details image">
-     <div class="mask rgba-white-slight">
-       <p>{{photoDetails[0]?.text_photo}}</p>
-     </div>
-   </div>
-   <!--  like -->
-   <div style="text-align:right">
-     <!-- button like -->
-     <button type="submit" class="fa fa-thumbs-up btn-light"
-       (click)="giveLike(photoDetails[0]?.id);getDetailsPhoto(photoDetails[0]?.id);postsMyFriends()"></button>
+  </div>
 
-     <i class="fa fa-heart" style="color:red; font-size:28px; margin: 10px;" data-toggle="tooltip" data-placement="top"
-       title="I like it">
-       {{photoDetails[0]?.likecount ||  0}} </i>
+  <div class="modal-body">
+    <!--  details image -->
+    <div class="view overlay" style="text-align: center;">
+      <img class="card-img-top" style="padding: 10px;" src={{photoDetails[0]?.image_url}} alt="details image">
+      <div class="mask rgba-white-slight">
+        <p>{{photoDetails[0]?.text_photo}}</p>
+      </div>
+    </div>
+    <!--  like -->
+    <div class="text-right">
+     <!-- button like -->
+     <button type="submit" class="btn btn-light"
+       (click)="giveLike(photoDetails[0]?.id);getDetailsPhoto(photoDetails[0]?.id);postsMyFriends()">
+         <i class="fa fa-thumbs-up"></i>
+     </button>
+      
+     <span class="mx-3" style="color:red;">
+       <i class="fa fa-2x fa-heart align-middle" data-toggle="tooltip" data-placement="top" title="I like it"></i>
+       {{photoDetails[0]?.likecount ||  0}}
+     </span>
 
      <!-- button Dislike -->
-     <button type="submit" class="fa fa-thumbs-down btn-light"
-       (click)="removeLike(photoDetails[0]?.id);getDetailsPhoto(photoDetails[0]?.id);postsMyFriends()"></button>
-
-   </div>
-
-   <div class="modal-body">
-     <div class="card-text" *ngFor="let comment of photoComments">
-       <p>{{comment.username}} ->{{ comment.comment_text }}
-         <a>
-           <i class="fa fa-trash float-left p-1 my-1 mr-3"
-             (click)="deleteComment(comment?.id);getDetailsPhoto(photoDetails[0]?.id);"></i>
-         </a>
-       </p>
-     </div>
-   </div>
-   <form [formGroup]="commentForm">
-     <div class="md-form">
-       <i class="fa fa-comments-o prefix"></i>
-       <textarea name="text" class="form-control" rows="1" formControlName="comments"></textarea>
-       <!-- Button -->
-       <button type="submit" class="btn btn-outline-success btn-sm"
-         (click)="createComment(photoDetails[0]?.id);getDetailsPhoto(photoDetails[0]?.id)">
-         Send
+     <button type="submit" class="btn btn-light"
+       (click)="removeLike(photoDetails[0]?.id);getDetailsPhoto(photoDetails[0]?.id);postsMyFriends()">
+         <i class="fa fa-thumbs-down"></i>
        </button>
-       <button type="button" class="btn btn-light" style="float: right;"
-         (click)="modal.close('Close click')">Close</button>
-     </div>
-     <!-- Form -->
-   </form>
-   <div>
+    </div>
 
-   </div>
+    <div *ngIf="photoComments && photoComments.length" class="modal-body">
+      <div class="card-text" *ngFor="let comment of photoComments">
+        <p>{{comment.username}} ->{{ comment.comment_text }}
+          <a>
+            <i class="fa fa-trash float-left p-1 my-1 mr-3"
+              (click)="deleteComment(comment?.id);getDetailsPhoto(photoDetails[0]?.id);"></i>
+          </a>
+        </p>
+      </div>
+    </div>
+
+    <form [formGroup]="commentForm">
+      <div class="form-group">
+        <i class="fa fa-comments-o prefix"></i>
+        <textarea name="text" class="form-control" rows="1" formControlName="comments"></textarea>
+        <!-- Button -->
+        <button type="submit" class="btn btn-primary float-right mt-3"
+          (click)="createComment(photoDetails[0]?.id);getDetailsPhoto(photoDetails[0]?.id)">
+          Send
+        </button>
+        <!-- <button type="button" class="btn btn-light" style="float: right;"
+          (click)="modal.close('Close click')">Close</button> -->
+      </div>
+     <!-- Form -->
+    </form>
+
+  </div>
  </ng-template>
