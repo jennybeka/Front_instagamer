@@ -1,7 +1,7 @@
 <!-- ----------Modal quando clicado POSTAR UMA IMAGEM ----------------------->
 <ng-template #longContent let-modal>
   <div class="modal-header">
-    <h4 class="modal-title">Modal title</h4>
+    <h4 class="modal-title">Send a url</h4>
     <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click'); resetForm();">
       <span aria-hidden="true">&times;</span>
     </button>
@@ -10,13 +10,16 @@
     <form [formGroup]="postForm">
       <div class="form-group">
         <!-- class formGoupr -->
-        <input type="text" class="form-control" placeholder="Image URL" formControlName="image_url" data-toggle="tooltip" data-placement="top" title="Example : 'https://img.elo7.com.br/product/zoom/24326E/'"
+        <input type="text" class="form-control" placeholder="Image URL" formControlName="image_url"
+          data-toggle="tooltip" data-placement="top" title="Example : 'https://img.elo7.com.br/product/zoom/24326E/'"
           [ngClass]="{ 'is-invalid': submitted && f.image_url.errors }">
         <div *ngIf="submitted && f.image_url.errors" class="invalid-feedback">
           <div id="erroUrl" *ngIf="f.image_url.errors.required">Url is required</div>
         </div>
-        <input type="text" class="form-control" placeholder="Legend" formControlName="text_image" data-toggle="tooltip" data-placement="top" title="Example : 'Very Happy!!'">
-        <input type="text" class="form-control" placeholder="tags" formControlName="tags_image" data-toggle="tooltip" data-placement="top" title="Example : 'sonic, hard, happy, gamer'">
+        <input type="text" class="form-control" placeholder="Legend" formControlName="text_image" data-toggle="tooltip"
+          data-placement="top" title="Example : 'Very Happy!!'">
+        <input type="text" class="form-control" placeholder="tags" formControlName="tags_image" data-toggle="tooltip"
+          data-placement="top" title="Example : 'sonic, hard, happy, gamer'">
       </div><!-- end formGoupr -->
     </form>
   </div>
@@ -57,7 +60,7 @@
       </div>
     </div>
   </div>
-<!--End Div profile / -->
+  <!--End Div profile / -->
 
 
   <!--MODAL DE IMAGEMM /////////////////////////////////////////////////////////////////////////////////// -->
@@ -80,17 +83,23 @@
     </div>
     <!--  like -->
     <div style="text-align:right">
+
       <!-- button like -->
-      <button type="submit" class="fa fa-thumbs-up btn-light"
-        (click)="giveLike(photoDetails[0]?.id);getDetailsPhoto(photoDetails[0]?.id)"></button>
 
-      <i class="fa fa-heart" style="color:red;" data-toggle="tooltip" data-placement="top" title="I like it">
-        {{photoDetails[0]?.likecount ||  0}} </i>
+      <div *ngIf="checkLike; else notLike">
+        <button class="fa fa-thumbs-down btn-light"
+          (click)="removeLike(photoDetails[0]?.id);getDetailsPhoto(photoDetails[0]?.id);verifyLike(photoDetails[0]?.id);">Dislike</button>
+        <i class="fa fa-heart" style="color:red;" data-toggle="tooltip" data-placement="top" title="I like it">
+          {{photoDetails[0]?.likecount ||  0}} </i>
+      </div>
 
-      <!-- button Dislike -->
-      <button type="submit" class="fa fa-thumbs-down btn-light"
-        (click)="removeLike(photoDetails[0]?.id);getDetailsPhoto(photoDetails[0]?.id)"></button>
-
+      <ng-template #notLike>
+        <button class="fa fa-thumbs-up btn-light"
+          (click)="giveLike(photoDetails[0]?.id);getDetailsPhoto(photoDetails[0]?.id);verifyLike(photoDetails[0]?.id)">Like</button>
+        <i class="fa fa-heart" style="color:red;" data-toggle="tooltip" data-placement="top" title="I like it">
+          {{photoDetails[0]?.likecount ||  0}} </i>
+      </ng-template>
+      
     </div>
 
     <div class="modal-body">

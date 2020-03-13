@@ -26,6 +26,7 @@ export class PostsComponent implements OnInit {
   profileFollowers: number;
   profileId: number;
   checkFollow: boolean;
+  checkLike: boolean;
   newFollow: boolean;
   controlPage: number = 0;
   photoDetails: any[] = [];
@@ -57,6 +58,7 @@ export class PostsComponent implements OnInit {
   get c() { return this.commentForm.controls; }
 
   getPostsMyFriend() {
+    console.log("aqui temos o getposts friend")
     this.idFriend = this.route.snapshot.params['idFriend']
     this.postsService.getProfileFriend(this.route.snapshot.params['page'], this.idFriend)
       .subscribe(res => {
@@ -102,13 +104,20 @@ export class PostsComponent implements OnInit {
           console.log(res)
         });
   }
-  removeLike(photoId: number) {
 
+  removeLike(photoId: number) {
     this.postsService.dislike(photoId)
       .subscribe(
         res => {
           console.log("Retorno DISLIKE BD")
           console.log(res)
+        });
+  }
+  verifyLike(photoId: number){
+    this.postsService.getCheckLike(photoId)
+      .subscribe(
+        res => {
+          this.checkLike = res.success
         });
   }
 
@@ -117,8 +126,6 @@ export class PostsComponent implements OnInit {
       .subscribe(
         res => {
           this.checkFollow = res.success
-          console.log(this.checkFollow)
-          console.log("Retorno checando se esta seguindo")
         });
   }
 

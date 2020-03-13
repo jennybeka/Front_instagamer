@@ -10,12 +10,13 @@
 
       <p>Following: {{profileFollowing ||  0 }} <span class="spacing">Followers : {{profileFollowers ||  0}}</span>
         <span class="spacing"> Posts: {{totalPosts}}</span></p>
+
       <div *ngIf="checkFollow; else notFollow">
-        <button class="btn btn-outline-primary mb-2 mr-2" (click)="unfollow();getPostsMyFriend();verifyFollow()">UNFOLLOW</button>
+        <button class="btn btn-outline-primary mb-2 mr-2" (click)="unfollow();getPostsMyFriend();verifyFollow();">UNFOLLOW</button>
       </div>
 
       <ng-template #notFollow>
-        <button class="btn btn-outline-primary mb-2 mr-2" (click)="follow();getPostsMyFriend();verifyFollow()">FOLLOW</button>
+        <button class="btn btn-outline-primary mb-2 mr-2" (click)="follow();getPostsMyFriend();verifyFollow();">FOLLOW</button>
       </ng-template>
 
 
@@ -51,18 +52,24 @@
         <p>{{photoDetails[0]?.text_photo}}</p>
       </div>
     </div>
+
     <!--  like -->
     <div style="text-align:right">
       <!-- button like -->
-      <button type="submit" class="fa fa-thumbs-up btn-light"
-        (click)="giveLike(photoDetails[0]?.id);getPhotoMyFriend(photoDetails[0]?.id)"></button>
 
-      <i class="fa fa-heart" style="color:red;" data-toggle="tooltip" data-placement="top" title="I like it">
-        {{photoDetails[0]?.likecount ||  0}} </i>
+      <div *ngIf="checkLike; else notLike">
+        <button class="fa fa-thumbs-down btn-light"
+          (click)="removeLike(photoDetails[0]?.id);getPhotoMyFriend(photoDetails[0]?.id);verifyLike(photoDetails[0]?.id);">Dislike</button>
+        <i class="fa fa-heart" style="color:red;" data-toggle="tooltip" data-placement="top" title="I like it">
+          {{photoDetails[0]?.likecount ||  0}} </i>
+      </div>
 
-      <!-- button Dislike -->
-      <button type="submit" class="fa fa-thumbs-down btn-light"
-        (click)="removeLike(photoDetails[0]?.id);getPhotoMyFriend(photoDetails[0]?.id)"></button>
+      <ng-template #notLike>
+        <button class="fa fa-thumbs-up btn-light"
+          (click)="giveLike(photoDetails[0]?.id);getPhotoMyFriend(photoDetails[0]?.id);verifyLike(photoDetails[0]?.id)">Like</button>
+        <i class="fa fa-heart" style="color:red;" data-toggle="tooltip" data-placement="top" title="I like it">
+          {{photoDetails[0]?.likecount ||  0}} </i>
+      </ng-template>
 
     </div>
 

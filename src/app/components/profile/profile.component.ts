@@ -20,6 +20,8 @@ export class ProfileComponent implements OnInit {
   postForm: FormGroup;
   submitted = false;
   loading = false;
+  checkLike: boolean;
+ 
 
   info: any[] = [];
   user: any[] = [];
@@ -152,6 +154,14 @@ export class ProfileComponent implements OnInit {
           this.photoDetails = res.photo
           this.photoTags = res.tags
           this.photoComments = res.comments
+        });
+  }
+
+  verifyLike(photoId: number){
+    this.postsService.getCheckLike(photoId)
+      .subscribe(
+        res => {
+          this.checkLike = res.success
         });
   }
 
