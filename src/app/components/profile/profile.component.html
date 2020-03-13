@@ -1,11 +1,12 @@
 <!-- ----------Modal quando clicado POSTAR UMA IMAGEM ----------------------->
 <ng-template #longContent let-modal>
   <div class="modal-header">
-    <h4 class="modal-title">Modal title</h4>
+    <h4 class="modal-title">New Post</h4>
     <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click'); resetForm();">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
+
   <div class="modal-body">
     <form [formGroup]="postForm">
       <div class="form-group">
@@ -15,14 +16,22 @@
         <div *ngIf="submitted && f.image_url.errors" class="invalid-feedback">
           <div id="erroUrl" *ngIf="f.image_url.errors.required">Url is required</div>
         </div>
+      </div><!-- end formGoupr -->
+        
+      <div class="form-group">
         <input type="text" class="form-control" placeholder="Legend" formControlName="text_image" data-toggle="tooltip" data-placement="top" title="Example : 'Very Happy!!'">
+      </div><!-- end formGoupr -->
+      
+      <div class="form-group">
         <input type="text" class="form-control" placeholder="tags" formControlName="tags_image" data-toggle="tooltip" data-placement="top" title="Example : 'sonic, hard, happy, gamer'">
       </div><!-- end formGoupr -->
     </form>
   </div>
+
   <div class="modal-footer">
     <button type="button" class="btn btn-light" (click)="modal.close('Close click'); resetForm();">Close</button>
-    <button [disabled]="loading" type="submit" class="btn btn-light"
+    
+    <button [disabled]="loading" type="submit" class="btn btn-primary"
       (click)="createPhoto(f.value, Close);modal.close('Close click');getMyProfile();resetForm();">
       <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>Submit
     </button>
