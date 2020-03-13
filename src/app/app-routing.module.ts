@@ -17,7 +17,7 @@ export const routes: Routes = [
   { path: 'instagamer/posts/all/:page', component: SearchComponent, canActivate: [AuthGuard] },
   { path: 'instagamer/posts/all/:page/:idFriend', component: PostsComponent, canActivate: [AuthGuard] },
   { path: 'instagamer/home/:page/:idFriend', component: PostsComponent, canActivate: [AuthGuard] },
-  
+  { path: 'instagamer/follow/:idFriend', component: PostsComponent, canActivate: [AuthGuard] },
 
 ];
 /** Routerlink não está bem executado(por isso tive que fazer rotas iguais e acrescentar 

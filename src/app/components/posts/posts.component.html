@@ -5,14 +5,19 @@
     <div class="profile">
       <h2>FriendGamer, {{profileName}}</h2>
       <hr>
-      <img
-        src="http://www.gravatar.com/avatar/{{profileGravatar}}?d=wavatar" class="avatar rounded-circle"
+      <img src="http://www.gravatar.com/avatar/{{profileGravatar}}?d=wavatar" class="avatar rounded-circle"
         alt="My avatar">
 
       <p>Following: {{profileFollowing ||  0 }} <span class="spacing">Followers : {{profileFollowers ||  0}}</span>
         <span class="spacing"> Posts: {{totalPosts}}</span></p>
+      <div *ngIf="checkFollow; else notFollow">
+        <button class="btn btn-outline-primary mb-2 mr-2" (click)="unfollow();getPostsMyFriend();verifyFollow()">UNFOLLOW</button>
+      </div>
 
-      <button class="btn btn-outline-primary mb-2 mr-2" (click)="verifyFollow()">FOLLOW OU UNFOLLOW</button>
+      <ng-template #notFollow>
+        <button class="btn btn-outline-primary mb-2 mr-2" (click)="follow();getPostsMyFriend();verifyFollow()">FOLLOW</button>
+      </ng-template>
+
 
     </div>
   </div>
@@ -39,7 +44,7 @@
         <span aria-hidden="true">&times;</span>
       </button>
     </div>
-    
+
     <div class="view overlay" style="text-align: center;">
       <img class="card-img-top" style="padding: 10px;" src={{photoDetails[0]?.image_url}} alt="details image">
       <div class="mask rgba-white-slight">
@@ -88,4 +93,4 @@
     </div>
   </ng-template>
   <!---------------- FIM MODAL DE IMAGEMM /////////////////////////////////////////////////////////////////////////////////// -->
-  <a class="btn btn-blue"  (click)="loadMorePhotos()">Load more</a>
+  <a class="btn btn-blue" (click)="loadMorePhotos()">Load more</a>

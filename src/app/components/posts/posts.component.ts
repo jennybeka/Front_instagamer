@@ -4,7 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { AlertService } from 'src/app/services/alert.service';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-
+import { UsersService } from '../../services/users.service'
 @Component({
   selector: 'app-posts-list',
   templateUrl: './posts.component.html',
@@ -24,18 +24,21 @@ export class PostsComponent implements OnInit {
   profileGravatar: string;
   profileFollowing: number;
   profileFollowers: number;
-
+  profileId: number;
+  checkFollow: boolean;
+  newFollow: boolean;
   controlPage: number = 0;
   photoDetails: any[] = [];
   photoTags: any[];
   photoComments: any[];
+
   constructor(
     private route: ActivatedRoute,
     private postsService: PostsService,
     private formBuilder: FormBuilder,
     private alertService: AlertService,
     private modalService: NgbModal,
-
+    private usersService: UsersService
   ) {
     this.route.params.subscribe(res => console.log(res.idFriend));
     this.route.params.subscribe(res => console.log(res.page));
@@ -43,6 +46,7 @@ export class PostsComponent implements OnInit {
 
   ngOnInit() {
     this.getPostsMyFriend();
+    this.verifyFollow();
     this.idFriend = this.route.snapshot.params['idFriend']
     this.commentForm = this.formBuilder.group({
       comments: ['',]
@@ -53,7 +57,6 @@ export class PostsComponent implements OnInit {
   get c() { return this.commentForm.controls; }
 
   getPostsMyFriend() {
-    console.log('')
     this.idFriend = this.route.snapshot.params['idFriend']
     this.postsService.getProfileFriend(this.route.snapshot.params['page'], this.idFriend)
       .subscribe(res => {
@@ -81,8 +84,6 @@ export class PostsComponent implements OnInit {
   }
 
   getPhotoMyFriend(photoId: number) {
-    console.log('idphoto')
-    console.log(photoId)
     this.postsService.getPhotoDetails(photoId)
       .subscribe(
         res => {
@@ -111,6 +112,34 @@ export class PostsComponent implements OnInit {
         });
   }
 
+  verifyFollow() {
+    this.usersService.getCheckFollower(this.idFriend)
+      .subscribe(
+        res => {
+          this.checkFollow = res.success
+          console.log(this.checkFollow)
+          console.log("Retorno checando se esta seguindo")
+        });
+  }
+
+  follow() {
+    this.usersService.getFollow(this.idFriend)
+      .subscribe(
+        res => {
+          console.log("Retorno new seguidor")
+          console.log(res)
+        });
+  }
+
+  unfollow() {
+    this.usersService.getUnFollow(this.idFriend)
+      .subscribe(
+        res => {
+          console.log("Retorno new unfollow")
+          console.log(res)
+        });
+
+  }
   createComment(photoId: number) {
     this.postsService.createComment(this.c.comments.value, photoId)
       .subscribe(

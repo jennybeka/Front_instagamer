@@ -5,7 +5,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { SearchService } from 'src/app/services/search.service';
-import { first } from 'rxjs/operators';
+
 
 @Component({
   selector: 'app-search',
@@ -51,13 +51,11 @@ export class SearchComponent implements OnInit {
       .subscribe(res => {
         this.allUser = res.posts;
         this.totalPosts = res.pageQt;
-        console.log(this.allUser)
 
         if (this.allUser.length == 0) {
           this.dataNotFound = true
-          console.log(this.dataNotFound)
+
         } else {
-          console.log("Aqui elsa!")
           this.username = this.allUser[0]['username'];
           this.gravatar = this.allUser[0]['gravatar_hash'];
           this.dataNotFound = false
@@ -67,8 +65,6 @@ export class SearchComponent implements OnInit {
   }
 
   loadMoreUsers(paramInput: string) {
-    console.log("Alluser antes")
-    console.log(this.allUser)
     this.controlPage++;
 
     this.searchService.getAllUsers(this.route.snapshot.params['page'] + this.controlPage, paramInput)
@@ -76,8 +72,6 @@ export class SearchComponent implements OnInit {
         for (let user of res.posts) {
           this.allUser.push(user);
         };
-        console.log("Alluser depois")
-        console.log(res.posts)
       })
   }
 

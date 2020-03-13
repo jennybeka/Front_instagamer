@@ -17,8 +17,7 @@ export class PostsService {
     const headers = new HttpHeaders({
       Authorization: 'Bearer ' + token
     });
-    console.log("olha aquiiiiiiiiiiiiiiiiiiiiiiiiiiiii")
-console.log(idFriend)
+   
     return this.http.get(`http://localhost:3001/instagamer/home/friend/${page}/${idFriend}`, { headers });
   }
 

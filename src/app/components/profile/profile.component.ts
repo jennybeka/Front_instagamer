@@ -1,9 +1,8 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
 import { UsersService } from '../../services/users.service';
 import { PostsService } from '../../services/posts.service';
-import { NgbModule, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute } from '@angular/router';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { AlertService } from 'src/app/services/alert.service';
@@ -73,6 +72,7 @@ export class ProfileComponent implements OnInit {
         this.profileName = this.user[0]['name'];
         this.profileGravatar = this.user[0]['gravatar_hash'];
         this.profileFollowing = this.user[0]['seguindoCount'];
+        this.profileFollowers = this.user[0]['seguidoresCount'];
         this.profileFollowers = this.user[0]['seguidoresCount'];
 
       });

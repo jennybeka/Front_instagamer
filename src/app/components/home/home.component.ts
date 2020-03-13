@@ -58,10 +58,10 @@ export class HomeComponent implements OnInit {
       .subscribe(res => {
         this.posts = res.posts
         this.totalPosts = res.totalPosts;
-
+        
         if (this.posts.length == 0) {
           this.dataNotFound = true
-       
+
         } else {
  
           this.dataNotFound = false
@@ -70,15 +70,12 @@ export class HomeComponent implements OnInit {
       });
   }
   getDetailsPhoto(photoId: number) {
-    console.log("photoID aquiiii")
-    console.log(photoId)
     this.postsService.getPhotoDetails(photoId)
       .subscribe(
         res => {
           this.photoDetails = res.photo
           this.photoTags = res.tags
           this.photoComments = res.comments
-          console.log(res.photo)
         });
   }
 
