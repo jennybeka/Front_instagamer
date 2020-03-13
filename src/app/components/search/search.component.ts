@@ -51,7 +51,7 @@ export class SearchComponent implements OnInit {
       .subscribe(res => {
         this.allUser = res.posts;
         this.totalPosts = res.pageQt;
-        // console.log(this.username)
+        console.log(this.allUser)
 
         if (this.allUser.length == 0) {
           this.dataNotFound = true

@@ -12,13 +12,14 @@ export class PostsService {
   ) { }
 
   /**Setar todoas os posts de quem eu sigo */
-  getPublicPosts(page: number): Observable<any> {
+  getProfileFriend(page: number, idFriend:number): Observable<any> {
     const token = sessionStorage.getItem('token');
     const headers = new HttpHeaders({
       Authorization: 'Bearer ' + token
     });
-
-    return this.http.get(`http://localhost:3001/instagamer/posts/${page}`, { headers });
+    console.log("olha aquiiiiiiiiiiiiiiiiiiiiiiiiiiiii")
+console.log(idFriend)
+    return this.http.get(`http://localhost:3001/instagamer/home/friend/${page}/${idFriend}`, { headers });
   }
 
   /**Setar as informações de uma foto especifica, comentarios, likes e tags */

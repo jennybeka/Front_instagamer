@@ -13,19 +13,16 @@ export const routes: Routes = [
   { path: '', redirectTo: '/instagamer/login', pathMatch: 'full' },
   { path: 'instagamer/register', component: RegisterComponent },
   { path: 'instagamer/login', component: LoginComponent },
-  // { path: 'instagamer/posts/all/:page', component: HomeComponent, canActivate: [AuthGuard] },
   { path: 'instagamer/profile/:page', component: ProfileComponent, canActivate: [AuthGuard] },
-  { path: 'instagamer/posts/create', component: ProfileComponent, canActivate: [AuthGuard] },
-  { path: 'instagamer/posts/photo/:id', component: PostsComponent, canActivate: [AuthGuard] },
-  { path: 'instagamer/posts/:idPhoto', component: PostsComponent, canActivate: [AuthGuard] },
-  { path: 'instagamer/posts/comment/:idphoto', component: PostsComponent, canActivate: [AuthGuard] },
-  { path: 'instagamer/posts/comment/:idcomment', component: PostsComponent, canActivate: [AuthGuard] },
-  { path: 'instagamer/posts/like/:idphoto', component: PostsComponent, canActivate: [AuthGuard] },
-  { path: 'instagamer/posts/dislike/:idLike', component: PostsComponent, canActivate: [AuthGuard] },
   { path: 'instagamer/posts/all/:page', component: SearchComponent, canActivate: [AuthGuard] },
-  // { path: 'instagamer/logout', component: HomeComponent },
-];
+  { path: 'instagamer/posts/all/:page/:idFriend', component: PostsComponent, canActivate: [AuthGuard] },
+  { path: 'instagamer/home/:page/:idFriend', component: PostsComponent, canActivate: [AuthGuard] },
+  
 
+];
+/** Routerlink não está bem executado(por isso tive que fazer rotas iguais e acrescentar 
+ * parametros que somavam ao link ja existente de rota ***TODO)
+ */
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]

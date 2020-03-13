@@ -35,7 +35,7 @@
             <img ngbTooltip="{{user.name}}" data-toggle="tooltip" data-placement="top"
               src="http://www.gravatar.com/avatar/{{user.gravatar_hash}}?d=wavatar"
               class="avatar rounded-circle mx-auto d-block" alt="My avatar">
-            <a href="">
+            <a  class="nav-link" routerLinkActive="active" [routerLink]="[user.idUser]">
               <p class="card-title">{{user.username}}</p>
             </a>
           </div>

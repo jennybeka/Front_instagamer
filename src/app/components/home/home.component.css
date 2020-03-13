@@ -11,10 +11,7 @@
 .modal-body {
   height: 80px;
 }
- /* .myColor1 {
-  --color: white;
- }
- #myColor:checked ~ .a {
-  color: rgb(252, 32, 4)  
- 
- } */
+.dnf {
+  text-align: center;
+  margin-top: 50px;
+}
