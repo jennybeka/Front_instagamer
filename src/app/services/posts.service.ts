@@ -18,7 +18,7 @@ export class PostsService {
       Authorization: 'Bearer ' + token
     });
    
-    return this.http.get(`http://localhost:3001/instagamer/home/friend/${page}/${idFriend}`, { headers });
+    return this.http.get(`https://instagamerbackend.herokuapp.com/instagamer/home/friend/${page}/${idFriend}`, { headers });
   }
 
   /**Setar as informações de uma foto especifica, comentarios, likes e tags */
@@ -28,7 +28,7 @@ export class PostsService {
       Authorization: 'Bearer ' + token
     });
 
-    return this.http.get(`http://localhost:3001/instagamer/posts/photo/${id}`, { headers });
+    return this.http.get(`https://instagamerbackend.herokuapp.com/instagamer/posts/photo/${id}`, { headers });
   }
 
   getCheckLike(idphoto: number): Observable<any> {
@@ -36,7 +36,7 @@ export class PostsService {
     const headers = new HttpHeaders({
       Authorization: 'Bearer ' + token
     });
-    return this.http.get(`http://localhost:3001/instagamer/photo/like/${idphoto}`, { headers });
+    return this.http.get(`https://instagamerbackend.herokuapp.com/instagamer/photo/like/${idphoto}`, { headers });
   }
 
   like(idphoto: number) {
@@ -44,7 +44,7 @@ export class PostsService {
     const headers = new HttpHeaders({
       Authorization: 'Bearer ' + token
     });
-    return this.http.get(`http://localhost:3001/instagamer/posts/like/${idphoto}`, { headers });
+    return this.http.get(`https://instagamerbackend.herokuapp.com/instagamer/posts/like/${idphoto}`, { headers });
   }
 
   dislike(idphoto: number) {
@@ -53,7 +53,7 @@ export class PostsService {
     const headers = new HttpHeaders({
       Authorization: 'Bearer ' + token
     });
-    return this.http.delete(`http://localhost:3001/instagamer/posts/dislike/${idphoto}`, { headers });
+    return this.http.delete(`https://instagamerbackend.herokuapp.com/instagamer/posts/dislike/${idphoto}`, { headers });
   }
 
   createComment(comment_text: string, photoId: number): Observable<any> {
@@ -61,7 +61,7 @@ export class PostsService {
     const headers = new HttpHeaders({
       Authorization: 'Bearer ' + token
     });
-    return this.http.post(`http://localhost:3001/instagamer/posts/postcomment`, { comment_text, photoId }, { headers });
+    return this.http.post(`https://instagamerbackend.herokuapp.com/instagamer/posts/postcomment`, { comment_text, photoId }, { headers });
   }
 
   getDeleteComment(idComment: number) {
@@ -70,7 +70,7 @@ export class PostsService {
     const headers = new HttpHeaders({
       Authorization: 'Bearer ' + token
     });
-    return this.http.delete(`http://localhost:3001/instagamer/posts/comment/${idComment}`, { headers });
+    return this.http.delete(`https://instagamerbackend.herokuapp.com/instagamer/posts/comment/${idComment}`, { headers });
   }
 
 
