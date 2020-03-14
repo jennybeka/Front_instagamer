@@ -47,7 +47,6 @@ export class PostsComponent implements OnInit {
 
   ngOnInit() {
     this.getPostsMyFriend();
-    this.verifyFollow();
     this.idFriend = this.route.snapshot.params['idFriend']
     this.commentForm = this.formBuilder.group({
       comments: ['',]

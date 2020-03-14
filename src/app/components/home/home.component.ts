@@ -24,6 +24,7 @@ export class HomeComponent implements OnInit {
   loading = false;
   submitted = false;
   dataNotFound: Boolean;
+  checkLike: boolean;
 
   // detalhes photo
 
@@ -90,6 +91,14 @@ export class HomeComponent implements OnInit {
       })
   }
   // mesmas funções do profile (LIKE, DISLIKE, CREATECOMMENT) (tentar ajustar com @INPUT OUTPUT e SERVIÇOS)
+  verifyLike(photoId: number){
+    this.postsService.getCheckLike(photoId)
+      .subscribe(
+        res => {
+          this.checkLike = res.success
+        });
+  }
+  
   giveLike(photoId: number) {
     this.postsService.like(photoId)
       .subscribe(

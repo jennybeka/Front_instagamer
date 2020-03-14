@@ -18,6 +18,7 @@ import { AlertComponent } from './components/alert/alert.component';
 import { AuthService } from './services/auth.service';
 import { FilterPipe } from './filter.pipe';
 import { SearchComponent } from './components/search/search.component';
+// import { PasswordresetComponent } from './components/passwordreset/passwordreset.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { SearchComponent } from './components/search/search.component';
     AlertComponent,
     FilterPipe,
     SearchComponent,
+   
 
   ],
   imports: [
