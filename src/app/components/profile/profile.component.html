@@ -35,7 +35,7 @@
     <button type="button" class="btn btn-light" (click)="modal.close('Close click'); resetForm();">Close</button>
 
     <button [disabled]="loading" type="submit" class="btn btn-primary"
-      (click)="createPhoto(f.value, Close);modal.close('Close click');getMyProfile();resetForm();">
+      (click)="createPhoto();modal.close('Close click');getMyProfile();resetForm();">
       <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>Submit
     </button>
   </div>
