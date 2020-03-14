@@ -1,11 +1,7 @@
 <!-- ----------Modal quando clicado POSTAR UMA IMAGEM ----------------------->
 <ng-template #longContent let-modal>
   <div class="modal-header">
-<<<<<<< HEAD
-    <h4 class="modal-title">Send a url</h4>
-=======
     <h4 class="modal-title">New Post</h4>
->>>>>>> 412fa9f4ec588c1ca2a23a0ebd96802c2f9c4f82
     <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click'); resetForm();">
       <span aria-hidden="true">&times;</span>
     </button>
@@ -21,12 +17,6 @@
         <div *ngIf="submitted && f.image_url.errors" class="invalid-feedback">
           <div id="erroUrl" *ngIf="f.image_url.errors.required">Url is required</div>
         </div>
-<<<<<<< HEAD
-        <input type="text" class="form-control" placeholder="Legend" formControlName="text_image" data-toggle="tooltip"
-          data-placement="top" title="Example : 'Very Happy!!'">
-        <input type="text" class="form-control" placeholder="tags" formControlName="tags_image" data-toggle="tooltip"
-          data-placement="top" title="Example : 'sonic, hard, happy, gamer'">
-=======
       </div><!-- end formGoupr -->
         
       <div class="form-group">
@@ -35,7 +25,6 @@
       
       <div class="form-group">
         <input type="text" class="form-control" placeholder="tags" formControlName="tags_image" data-toggle="tooltip" data-placement="top" title="Example : 'sonic, hard, happy, gamer'">
->>>>>>> 412fa9f4ec588c1ca2a23a0ebd96802c2f9c4f82
       </div><!-- end formGoupr -->
     </form>
   </div>
