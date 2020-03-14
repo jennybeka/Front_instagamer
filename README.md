@@ -4,7 +4,7 @@
     * npm init
     * npm install
     * npm start
-    * it is necessary the project (instagamer) found in this github. (backend)
+    * it is also necessary to have the project (instagamer), which can be found in this github. (backend)
 
 2) Alternatively you can launch the app from the Terminal:
 
