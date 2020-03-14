@@ -44,6 +44,7 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
+    console.log("HEROKU TESTE ENTROU!")
     this.loginForm = this.formBuilder.group({
       email: ['', Validators.required],
       password: ['', Validators.required]
