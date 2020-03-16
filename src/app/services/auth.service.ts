@@ -25,7 +25,7 @@ export class AuthService {
   }
 
   login(email: string, password: string): Observable<any> {
-    return this.http.post('https://instagamerfronted.herokuapp.com/instagamer/login', { email, password });
+    return this.http.post('https://instagamerbackend.herokuapp.com/instagamer/login', { email, password });
 
   }
 
