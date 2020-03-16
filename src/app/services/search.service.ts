@@ -20,7 +20,7 @@ export class SearchService {
       Authorization: 'Bearer ' + token
     });
 
-    return this.http.get(`http://localhost:3001/instagamer/posts/all/${page}/${paramInput}`, { headers } );
+    return this.http.get(`https://instagamerbackend.herokuapp.com/instagamer/posts/all/${page}/${paramInput}`, { headers } );
   }
 
 
