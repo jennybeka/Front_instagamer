@@ -52,7 +52,6 @@ export class AlertService {
 
     error(error: any, keepAfterRouteChange = false) {
         let message: String;
-        console.log(error)
         switch (error['status']) {
             case 401: {
                 message = 'Username or password is incorrect';
