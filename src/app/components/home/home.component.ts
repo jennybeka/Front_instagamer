@@ -95,7 +95,7 @@ export class HomeComponent implements OnInit {
     this.postsService.getCheckLike(photoId)
       .subscribe(
         res => {
-          this.checkLike = res.success
+          this.checkLike = res.success;
         });
   }
   
@@ -103,8 +103,9 @@ export class HomeComponent implements OnInit {
     this.postsService.like(photoId)
       .subscribe(
         res => {
-          console.log("Retorno LIKE BD")
-          console.log(res)
+          this.getDetailsPhoto(photoId);
+          this.postsMyFriends();
+          this.verifyLike(photoId);
         });
   }
   removeLike(photoId: number) {
@@ -112,8 +113,9 @@ export class HomeComponent implements OnInit {
     this.postsService.dislike(photoId)
       .subscribe(
         res => {
-          console.log("Retorno DISLIKE BD")
-          console.log(res)
+          this.getDetailsPhoto(photoId);
+          this.postsMyFriends();
+          this.verifyLike(photoId);
         });
   }
 

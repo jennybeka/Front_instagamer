@@ -26,13 +26,9 @@ export class SearchComponent implements OnInit {
   posts: any;
 
   constructor(
-    private http: HttpClient,
     private formBuilder: FormBuilder,
-    private modalService: NgbModal,
     private route: ActivatedRoute,
     private searchService: SearchService,
-    private alertService: AlertService,
-
   ) { }
 
   ngOnInit() {
@@ -46,15 +42,12 @@ export class SearchComponent implements OnInit {
   get s() { return this.search.controls; }
 
   searchUsers(paramInput: string) {
-    
     this.searchService.getAllUsers(this.route.snapshot.params['page'], paramInput)
       .subscribe(res => {
         this.allUser = res.posts;
         this.totalPosts = res.pageQt;
-
         if (this.allUser.length == 0) {
           this.dataNotFound = true
-
         } else {
           this.username = this.allUser[0]['username'];
           this.gravatar = this.allUser[0]['gravatar_hash'];

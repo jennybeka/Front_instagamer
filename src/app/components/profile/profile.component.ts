@@ -6,6 +6,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute } from '@angular/router';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { AlertService } from 'src/app/services/alert.service';
+import { ImageService } from "src/app/services/image.service";
 import { first } from 'rxjs/operators';
 
 
@@ -21,7 +22,7 @@ export class ProfileComponent implements OnInit {
   submitted = false;
   loading = false;
   checkLike: boolean;
- 
+
 
   info: any[] = [];
   user: any[] = [];
@@ -37,6 +38,8 @@ export class ProfileComponent implements OnInit {
   photoTags: any[];
   photoComments: any[];
   commentForm: FormGroup;
+  imageFile: File;
+  imageUrl: string;
 
   constructor(
     private http: HttpClient,
@@ -45,7 +48,8 @@ export class ProfileComponent implements OnInit {
     private modalService: NgbModal,
     private route: ActivatedRoute,
     private alertService: AlertService,
-    private postsService: PostsService
+    private postsService: PostsService,
+    private imageService: ImageService
   ) { }
 
   ngOnInit() {
@@ -64,6 +68,9 @@ export class ProfileComponent implements OnInit {
   get f() { return this.postForm.controls; }
   get c() { return this.commentForm.controls; }
 
+  imageInputChange(imageInput: any) {
+    this.imageFile = imageInput.files[0];
+  }
 
   getMyProfile() {
     this.usersService.getProfile(this.route.snapshot.params['page'])
@@ -115,6 +122,7 @@ export class ProfileComponent implements OnInit {
   }
 
   createPhoto() {
+    console.log("Ativou CREATEPHOTO")
     this.submitted = true;
     this.alertService.clear();
 
@@ -123,19 +131,32 @@ export class ProfileComponent implements OnInit {
     }
     this.loading = true;
 
-    this.usersService.createPost(this.f.image_url.value, this.f.text_image.value, this.f.tags_image.value)
-      .pipe(first())
+    this.imageService.uploadImage(this.imageFile)
       .subscribe(
         res => {
-          this.postId = res.postId
-          this.loading = false;
-          alert('Post created!')
-        },
-        error => {
-          this.alertService.error(error);
-          this.loading = false;
-          alert('connection error')
+
+          this.imageUrl = res['data'].link
+
+          this.usersService.createPost(this.imageUrl, this.f.text_image.value, this.f.tags_image.value)
+            .pipe(first())
+            .subscribe(
+              res => {
+                this.postId = res.postId
+                this.loading = false;
+                alert('Post created!')
+              },
+              error => {
+                this.alertService.error(error);
+                this.loading = false;
+                alert('connection error')
+              });
+
+          this.getMyProfile();
+
         });
+
+
+
   }
 
   deletePhoto(idphoto: number) {
@@ -157,7 +178,7 @@ export class ProfileComponent implements OnInit {
         });
   }
 
-  verifyLike(photoId: number){
+  verifyLike(photoId: number) {
     this.postsService.getCheckLike(photoId)
       .subscribe(
         res => {
@@ -169,8 +190,13 @@ export class ProfileComponent implements OnInit {
     this.postsService.like(photoId)
       .subscribe(
         res => {
-          console.log("Retorno LIKE BD")
-          console.log(res)
+          this.getDetailsPhoto(photoId);
+          this.verifyLike(photoId);
+          this.getMyProfile();
+        },
+        error => {
+          this.alertService.error(error);
+          alert('like error')
         });
   }
 
@@ -179,9 +205,15 @@ export class ProfileComponent implements OnInit {
     this.postsService.dislike(photoId)
       .subscribe(
         res => {
-          console.log("Retorno DISLIKE BD")
-          console.log(res)
+          this.getDetailsPhoto(photoId);
+          this.verifyLike(photoId);
+          this.getMyProfile();
+        },
+        error => {
+          this.alertService.error(error);
+          alert('dislike error')
         });
+
   }
 
   createComment(photoId: number) {
@@ -190,9 +222,7 @@ export class ProfileComponent implements OnInit {
       .pipe(first())
       .subscribe(
         res => {
-          console.log("Retorno POSTCOMMENT BD")
           this.c.comments.setValue("");
-          console.log(res)
         },
         error => {
           this.alertService.error(error);
@@ -207,6 +237,10 @@ export class ProfileComponent implements OnInit {
         res => {
           alert("Comment deleted!")
           console.log(res)
+        },
+        error => {
+          this.alertService.error(error);
+          alert('connection error')
         });
   }
 

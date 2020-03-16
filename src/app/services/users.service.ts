@@ -16,7 +16,7 @@ export class UsersService {
     const headers = new HttpHeaders({
       Authorization: 'Bearer ' + token
     });
-    return this.http.get(`https://instagamerbackend.herokuapp.com/instagamer/profile/${page}`, { headers });
+    return this.http.get(`http://localhost:3001/instagamer/profile/${page}`, { headers });
   }
 
   getMyFriends(page: number): Observable<any> {
@@ -24,7 +24,7 @@ export class UsersService {
     const headers = new HttpHeaders({
       Authorization: 'Bearer ' + token
     });
-    return this.http.get(`https://instagamerbackend.herokuapp.com/instagamer/home/${page}`, { headers });
+    return this.http.get(`http://localhost:3001/instagamer/home/${page}`, { headers });
   }
 
   getCheckFollower(friendId: number): Observable<any> {
@@ -32,7 +32,7 @@ export class UsersService {
     const headers = new HttpHeaders({
       Authorization: 'Bearer ' + token
     });
-    return this.http.get(`https://instagamerbackend.herokuapp.com/instagamer/friend/follower/${friendId}`, { headers });
+    return this.http.get(`http://localhost:3001/instagamer/friend/follower/${friendId}`, { headers });
   }
 
   getFollow(friendId: number): Observable<any> {
@@ -40,7 +40,7 @@ export class UsersService {
     const headers = new HttpHeaders({
       Authorization: 'Bearer ' + token
     });
-    return this.http.get(`https://instagamerbackend.herokuapp.com/instagamer/follow/${friendId}`, { headers });
+    return this.http.get(`http://localhost:3001/instagamer/follow/${friendId}`, { headers });
   }
 
   getUnFollow(friendId: number): Observable<any> {
@@ -48,7 +48,7 @@ export class UsersService {
     const headers = new HttpHeaders({
       Authorization: 'Bearer ' + token
     });
-    return this.http.get(`https://instagamerbackend.herokuapp.com/instagamer/unfollow/${friendId}`, { headers });
+    return this.http.get(`http://localhost:3001/instagamer/unfollow/${friendId}`, { headers });
   }
 
   createPost(image_url: string, text_photo: string, tags_image: string): Observable<any> {
@@ -56,7 +56,7 @@ export class UsersService {
     const headers = new HttpHeaders({
       Authorization: 'Bearer ' + token
     });
-    return this.http.post('https://instagamerbackend.herokuapp.com/instagamer/posts/create', { image_url, text_photo, tags_image }, { headers });
+    return this.http.post('http://localhost:3001/instagamer/posts/create', { image_url, text_photo, tags_image }, { headers });
   }
 
   deleteImage(idphoto: number) {
@@ -64,12 +64,12 @@ export class UsersService {
     const headers = new HttpHeaders({
       Authorization: 'Bearer ' + token
     });
-    return this.http.delete(`https://instagamerbackend.herokuapp.com/instagamer/posts/${idphoto}`, { headers });
+    return this.http.delete(`http://localhost:3001/instagamer/posts/${idphoto}`, { headers });
   }
 
 
 
   register(name: string, username: string, email: string, password: string) {
-    return this.http.post('https://instagamerbackend.herokuapp.com/instagamer/register', { name, username, email, password });
+    return this.http.post('http://localhost:3001/instagamer/register', { name, username, email, password });
   }
 }

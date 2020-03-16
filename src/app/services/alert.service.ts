@@ -42,8 +42,6 @@ export class AlertService {
         } else {
             // Aqui serão mapeados as próximas mensagens
             //TODO mapear próximos erros
-
-
             // Se o erro não está mapeado, ele deve ser retornado para que seja visivel e entao possamos mapear depois
             realMessage = `Error 400 not mapped. Raw message: ${rawMessage}`;
         }

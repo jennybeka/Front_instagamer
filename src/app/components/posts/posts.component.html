@@ -13,12 +13,12 @@
 
       <div *ngIf="checkFollow; else notFollow">
         <button class="btn btn-outline-primary mb-2 mr-2"
-          (click)="unfollow();getPostsMyFriend();verifyFollow();">UNFOLLOW</button>
+          (click)="unfollow();">UNFOLLOW</button>
       </div>
 
       <ng-template #notFollow>
         <button class="btn btn-outline-primary mb-2 mr-2"
-          (click)="follow();getPostsMyFriend();verifyFollow();">FOLLOW</button>
+          (click)="follow();">FOLLOW</button>
       </ng-template>
 
 
@@ -31,13 +31,10 @@
       <div class="col-md-12 center-block clearfix">
         <a *ngFor="let photos of info " class="col-md-4 feed-thumbnail clearfix">
           <img class="feed-thumbnail-img" [src]="photos.image_url"
-            (click)="getPhotoMyFriend(photos.idPhoto);openModalPhoto(modalPhoto);verifyLike(photoDetails[0]?.id);"></a>
+            (click)="getPhotoMyFriend(photos.idPhoto);openModalPhoto(modalPhoto);"></a>
       </div>
     </div>
   </div>
-
-
-
 
   <!--MODAL DE IMAGEMM /////////////////////////////////////////////////////////////////////////////////// -->
   <ng-template #modalPhoto let-modal class="modal-content" style="padding: 10px;">
@@ -61,7 +58,7 @@
 
       <div *ngIf="checkLike; else notLike">
         <button type="submit" class="btn btn-light"
-          (click)="removeLike(photoDetails[0]?.id);getPhotoMyFriend(photoDetails[0]?.id);verifyLike(photoDetails[0]?.id);getPostsMyFriend()">
+          (click)="removeLike(photoDetails[0]?.id);">
           <i class="fa fa-thumbs-down"></i>
         </button>
         <span class="mx-3" style="color:red;">
@@ -73,7 +70,7 @@
       <ng-template #notLike>
         <div class="text-right">
           <button type="submit" class="btn btn-light"
-            (click)="giveLike(photoDetails[0]?.id);getPhotoMyFriend(photoDetails[0]?.id);verifyLike(photoDetails[0]?.id);getPostsMyFriend()">
+            (click)="giveLike(photoDetails[0]?.id);">
             <i class="fa fa-thumbs-up"></i>
           </button>
           <span class="mx-3" style="color:red;">

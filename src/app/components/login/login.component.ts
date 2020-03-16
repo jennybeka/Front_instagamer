@@ -44,7 +44,6 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log("HEROKU TESTE ENTROU!")
     this.loginForm = this.formBuilder.group({
       email: ['', Validators.required],
       password: ['', Validators.required]
@@ -75,7 +74,7 @@ export class LoginComponent implements OnInit {
       .subscribe(
         data => {
           sessionStorage.setItem('token', data.token);
-          this.router.navigate(['/instagamer/home/0']);
+          this.router.navigate(['/instagamer/profile/0']);
         },
         error => {
           this.alertService.error(error);

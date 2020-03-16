@@ -36,7 +36,8 @@
 
      <!-- Card image -->
      <div class="view overlay">
-       <div class="text-center" (click)="getDetailsPhoto(postFriend.idPhoto);openModalPhoto(modalPhoto);verifyLike(photoDetails[0]?.id);">
+       <div class="text-center"
+         (click)="getDetailsPhoto(postFriend.idPhoto);openModalPhoto(modalPhoto);verifyLike(postFriend.idPhoto);">
          <img class="card-img-top rounded-0" [src]="postFriend.image_url" alt="Card image cap" data-toggle="tooltip"
            title="Details">
        </div>
@@ -86,8 +87,7 @@
        <!-- button like -->
 
        <div *ngIf="checkLike; else notLike">
-         <button type="submit" class="btn btn-light"
-           (click)="removeLike(photoDetails[0]?.id);getDetailsPhoto(photoDetails[0]?.id);postsMyFriends();verifyLike(photoDetails[0]?.id);">
+         <button type="submit" class="btn btn-light" (click)="removeLike(photoDetails[0]?.id);">
            <i class="fa fa-thumbs-down"></i>
          </button>
          <span class="mx-3" style="color:red;">
@@ -99,8 +99,7 @@
        <!-- button Dislike -->
        <ng-template #notLike>
          <div class="text-right">
-           <button type="submit" class="btn btn-light"
-             (click)="giveLike(photoDetails[0]?.id);getDetailsPhoto(photoDetails[0]?.id);verifyLike(photoDetails[0]?.id);postsMyFriends();">
+           <button type="submit" class="btn btn-light" (click)="giveLike(photoDetails[0]?.id);">
              <i class="fa fa-thumbs-up"></i>
            </button>
            <span class="mx-3" style="color:red;">
@@ -110,7 +109,8 @@
          </div>
        </ng-template>
 
-     </div>  <!--end  button like -->
+     </div>
+     <!--end  button like -->
 
      <div *ngIf="photoComments && photoComments.length" class="modal-body">
        <div class="card-text" *ngFor="let comment of photoComments">

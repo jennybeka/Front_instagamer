@@ -47,6 +47,7 @@ export class PostsComponent implements OnInit {
 
   ngOnInit() {
     this.getPostsMyFriend();
+    this.verifyFollow();
     this.idFriend = this.route.snapshot.params['idFriend']
     this.commentForm = this.formBuilder.group({
       comments: ['',]
@@ -57,7 +58,6 @@ export class PostsComponent implements OnInit {
   get c() { return this.commentForm.controls; }
 
   getPostsMyFriend() {
-    console.log("aqui temos o getposts friend")
     this.idFriend = this.route.snapshot.params['idFriend']
     this.postsService.getProfileFriend(this.route.snapshot.params['page'], this.idFriend)
       .subscribe(res => {
@@ -91,6 +91,7 @@ export class PostsComponent implements OnInit {
           this.photoDetails = res.photo
           this.photoTags = res.tags
           this.photoComments = res.comments
+          this.verifyLike(photoId);
         });
   }
 
@@ -99,8 +100,9 @@ export class PostsComponent implements OnInit {
     this.postsService.like(photoId)
       .subscribe(
         res => {
-          console.log("Retorno LIKE BD")
-          console.log(res)
+          this.getPhotoMyFriend(photoId);
+          this.verifyLike(photoId);
+          this.getPostsMyFriend()
         });
   }
 
@@ -108,8 +110,9 @@ export class PostsComponent implements OnInit {
     this.postsService.dislike(photoId)
       .subscribe(
         res => {
-          console.log("Retorno DISLIKE BD")
-          console.log(res)
+          this.getPhotoMyFriend(photoId);
+          this.verifyLike(photoId);
+          this.getPostsMyFriend()
         });
   }
   verifyLike(photoId: number){
@@ -125,6 +128,9 @@ export class PostsComponent implements OnInit {
       .subscribe(
         res => {
           this.checkFollow = res.success
+        },
+        error => {
+          this.alertService.error(error);
         });
   }
 
@@ -132,8 +138,12 @@ export class PostsComponent implements OnInit {
     this.usersService.getFollow(this.idFriend)
       .subscribe(
         res => {
-          console.log("Retorno new seguidor")
+          this.getPostsMyFriend();
+          this.verifyFollow();
           console.log(res)
+        },
+        error => {
+          this.alertService.error(error);
         });
   }
 
@@ -141,8 +151,12 @@ export class PostsComponent implements OnInit {
     this.usersService.getUnFollow(this.idFriend)
       .subscribe(
         res => {
-          console.log("Retorno new unfollow")
+          this.getPostsMyFriend();
+          this.verifyFollow();
           console.log(res)
+        },
+        error => {
+          this.alertService.error(error);
         });
 
   }
@@ -150,14 +164,11 @@ export class PostsComponent implements OnInit {
     this.postsService.createComment(this.c.comments.value, photoId)
       .subscribe(
         res => {
-          console.log("Retorno POSTCOMMENT BD")
           this.c.comments.setValue("");
           console.log(res)
         },
         error => {
           this.alertService.error(error);
-
-          alert('connection error')
         });
   }
 
@@ -166,6 +177,9 @@ export class PostsComponent implements OnInit {
       .subscribe(
         res => {
           console.log(res)
+        },
+        error => {
+          this.alertService.error(error);
         });
   }
 
